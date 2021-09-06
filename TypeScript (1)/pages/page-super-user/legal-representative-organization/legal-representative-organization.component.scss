@@ -1,0 +1,49 @@
+.l-legal-represenative{
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    .l-choose-user-organization {
+        border-radius: 15px;
+        display: inline-block;
+        margin-top: 16vh;
+        width: 55vw;
+        height: 50vh;
+        background-color: rgba(0,0,0,.1);
+        text-align: center;
+        h1 {
+            color: #788998;
+            font-family: Helvetica;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 29px;
+            margin-top: 3.5vh;
+            margin-left: 1.5vw;
+            text-align: left !important;            
+        }
+        hr {
+            border-top: 2px solid #788998;
+        }
+        button{
+            margin-top: 2vh;
+        }
+        .c-form{
+            margin-top: 3.5vh;
+            margin-left: 1.5vw;
+            width: 100%;
+            .c-error{
+                margin-top: 1vh;
+            }
+            .l-in{
+                width: 100%;
+                color: #788998;
+                font-family: Helvetica;
+                font-size: 16px;
+                line-height: 14px;
+                .c-in {
+                    display: inline !important;
+                    width: 50% !important;
+                }
+            }
+        }
+    }
+}

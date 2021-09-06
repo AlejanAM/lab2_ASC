@@ -1,0 +1,55 @@
+<section class="container v-user-detail">
+  <header class="row c-header c-header">
+    <article class="col-md-10">
+      <h1 id="user-name">{{userDetail.firstName}} {{userDetail.lastName}}</h1>
+      <span>Identificación {{userDetail.identification}}</span>
+    </article>
+  </header>
+  <hr>
+  <main>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Teléfono</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{userDetail.telephone}}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Correo electrónico</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{userDetail.email}}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Dirección</span>
+      </div>
+      <div class="col-md-10">
+        <p>
+          {{userDetail.address}}
+        </p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Sexo</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{userDetail.sex}}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Profesión / Oficio</span>
+      </div>
+      <div class="col-md-10">
+        <p>
+          {{userDetail.profession}}
+        </p>
+      </div>
+    </div>
+  </main>
+</section>

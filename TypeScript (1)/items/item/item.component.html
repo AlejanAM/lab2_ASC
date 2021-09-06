@@ -1,0 +1,10 @@
+<div class="c-item">
+  <figure>
+    <img src="{{item.image1}}">
+  </figure>
+  <article>
+    <h1>{{ item?.name | truncate : 12 }}</h1>
+    <span>{{ organizationDetail?.name | truncate : 12 }}</span>
+  </article>
+</div>
+<hr>

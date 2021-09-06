@@ -1,0 +1,15 @@
+<div class="c-title">
+  <h3>Sectores según Mideplan</h3>
+</div>
+<hr>
+<div class="c-dropdown-sector">
+  <select class="cursor-pointer" [(ngModel)]="sector" (change)="onChangeSector()">
+    <option
+      [ngValue]="sector"
+      *ngIf="sector === 0">-Seleccione Sector-</option>
+    <option *ngFor="let sector of sectors" [hidden]="showFirstLevel(sector.idPk)" [value]="sector.idPk">
+      {{sector.name}}
+    </option>
+  </select>
+  <button type="button" class="cursor-pointer" (click)="searchBySector()">Buscar</button>
+</div>

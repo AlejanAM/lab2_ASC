@@ -1,0 +1,69 @@
+.v-organization-detail {
+  header {
+    display: grid;
+    margin: 7% 0 0 0;
+    #org-name {
+      color: #788998;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    span {
+      line-height: 28px;
+    }
+  }
+  main {
+    span {
+      line-height: 25px;
+    }
+    p {
+      color: #b7b7b7;
+      font-family: Helvetica;
+      font-size: 16px;
+      line-height: 17px;
+      margin-top: 6px;
+      margin-bottom: 0;
+    }
+    #social-network {
+      span {
+        margin-right: 3%;
+        .fa {
+          font-size: 32px;
+        }
+      }
+    }
+    .c-block {
+      margin-bottom: 2em;
+      article {
+        display: flex;
+      }
+      &#region {
+        span {
+          padding-right: 32%;
+          & {
+            line-height: 32px;
+          }
+        }
+        .u-display {
+          &.grid {
+            display: grid;
+
+            .form-group {
+              margin-bottom: 0;
+            }
+          }
+        }
+        p {
+          line-height: 29px;
+        }
+        #province {
+          padding-right: 32%;
+        }
+      }
+    }
+  }
+  span {
+    color: #788998;
+    font-family: Helvetica;
+    font-size: 17.06px;
+  }
+}

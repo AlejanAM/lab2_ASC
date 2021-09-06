@@ -1,0 +1,207 @@
+$color: #ffffff;
+$font-weight-bold: bold;
+$font-family-helvetica: Helvetica;
+
+.v-principal-page {
+  .l-session {
+    button {
+      float: right;
+    }
+  }
+  .l-search {
+    margin: 0 0 10% 0;
+    .in-search {
+      border-radius: 3px;
+      background-color: #f3f4f5;
+    }
+    input::placeholder {
+      color: #95a5a6;
+      font-family: $font-family-helvetica;
+      font-style: oblique;
+      line-height: 17px;
+      text-align: left;
+    }
+    .c-btn-search {
+      height: 38px;
+      width: 38px;
+      background-color: #264a97;
+      button {
+        cursor: pointer;
+        color: $color;
+        background-color: #264a97;
+        -webkit-transform: rotate(90deg);
+        transform: rotate(90deg);
+        border: none;
+        padding: 24%;
+        height: 37px;
+        width: 37px;
+      }
+    }
+  }
+  .l-list-items {
+    margin: 0;
+    .c-item {
+      display: inline-flex;
+      img {
+        height: 53.01px;
+        width: 59.07px;
+        background-color: #d4d9de;
+        margin: 0 10px 0 0;
+      }
+      article {
+        h1 {
+          color: #788998;
+          font-family: $font-family-helvetica;
+          font-size: 16px;
+          font-weight: $font-weight-bold;
+          line-height: 17px;
+          margin: 0;
+        }
+        span {
+          height: 1.69%;
+          width: 12.11%;
+          color: #788998;
+          font-family: $font-family-helvetica;
+          line-height: 17px;
+        }
+      }
+    }
+  }
+  .l-configuration-search {
+    margin-top: 3%;
+    box-sizing: border-box;
+    height: 39px;
+  }
+  .l-search-service {
+    margin: 10% 0 0 0;
+    hr {
+      border-top: 2px solid rgba(0, 0, 0, 0.3);
+    }
+    .c-title {
+      text-align: center;
+      h3 {
+        height: 17px;
+        color: #2980b9;
+        font-family: $font-family-helvetica;
+        font-size: 16px;
+        font-weight: $font-weight-bold;
+        line-height: 17px;
+      }
+    }
+    .c-dropdown-sector {
+      margin: 15% 0 0 0;
+      text-align: center;
+      select {
+        height: 38px;
+        width: 100%;
+        border: 1px $font-weight-bold #979797;
+        border-radius: 3px;
+        background-color: $color;
+      }
+      button {
+        height: 40px;
+        width: 194px;
+        border-radius: 3px;
+        background-color: #264a97;
+        color: $color;
+        font-family: $font-family-helvetica;
+        font-size: 16px;
+        font-weight: $font-weight-bold;
+        line-height: 19px;
+        margin: 20% 0 0 0;
+      }
+    }
+  }
+  .c-bread-crumb {
+    background-color: transparent;
+  }
+}
+
+.v-principal-page-dash-board {
+  display: flex;
+  //height: calc(100% - 48px);
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  .l-horizontal-menu {
+    float: left;
+    width: 40%;
+    display: block;
+    border-right: 1px solid;
+    .list-group-item {
+      padding: 1.3rem 0 1.2rem 1.25rem;
+    }
+    .list-group-item-action {
+      &:hover {
+        background-color: #ffffff;
+      }
+    }
+    .menu-text {
+      color: #7e8a8b;
+      font-family: Helvetica;
+      line-height: 17px;
+      width: 100%;
+      cursor: pointer;
+      .active {
+        font-weight: bold;
+        color: #000000;
+      }
+      span {
+        padding: 10px 10px 10px 10px;
+      }
+    }
+    .menu-list-ONG {
+      list-style-type: none;
+      width: 100%;
+      .list-item {
+        &:hover {
+          height: 40px;
+          width: 100%;
+          background-color: #fbf1cd;
+          padding: 0 5%;
+          cursor: pointer;
+        }
+      }
+      li.active {
+        background-color: #fbf1cd;
+        font-weight: bold;
+        padding: 5px 0 2px 0;
+        border-right: 2px solid #efc306;
+        &:hover {
+          background-color: #fbf1cd;
+          padding: 5px 0 2px 0;
+        }
+      }
+    }
+    .menu-list-Catalog {
+      list-style-type: none;
+      width: 100%;
+      .list-item {
+        &:hover {
+          height: 29px;
+          width: 100%;
+          background-color: #d5f5e3;
+          padding: 0 5%;
+          cursor: pointer;
+        }
+      }
+      li.active {
+        background-color: #d5f5e3;
+        font-weight: bold;
+        padding: 5px 0 2px 0;
+        border-right: 5px solid #16a085;
+        &:hover {
+          background-color: #d5f5e3;
+          padding: 5px 0 2px 0;
+        }
+      }
+    }
+  }
+  .l-main {
+    float: left;
+    width: 100%;
+  }
+  .padding-layout {
+    padding: 3% 5%;
+  }
+}

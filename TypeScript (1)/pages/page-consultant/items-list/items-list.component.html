@@ -1,0 +1,24 @@
+<div class="row l-list-items">
+  <div class="col-sm-3" *ngFor="let item of itemsFound | paginate: { itemsPerPage: 20, currentPage: page }">
+    <app-item-no-approved class="cursor-pointer" tabindex="0" (keyup.enter)="showItem(item)" (click)="showItem(item)" [item]=item>
+    </app-item-no-approved>
+  </div>
+</div>
+
+<div class="row">
+  <p class="c-is-not-result" *ngIf="isNotResult">No se encontraron resultados.</p>
+</div>
+
+<footer class="row l-footer">
+  <div class="col-sm-12 c-pagination">
+    <pagination-controls
+      *ngIf="showItems"
+      (pageChange)="page = $event"
+      previousLabel="Anterior"
+      nextLabel="Siguiente"
+      screenReaderPaginationLabel="Paginador"
+      screenReaderPageLabel="página"
+      screenReaderCurrentLabel="Usted se encuentra en el paginador">
+    </pagination-controls>
+  </div>
+</footer>

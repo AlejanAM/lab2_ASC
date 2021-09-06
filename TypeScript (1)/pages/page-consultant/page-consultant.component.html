@@ -1,0 +1,12 @@
+<div><app-navbar-consultant></app-navbar-consultant></div>
+<div class="v-principal-page container">
+  <div class="row">
+    <ol *ngFor="let breadcrumb of itemBreadCrumb; let index = index" class="bread-crumb">
+      <li class="breadcrumb-item">
+        <a href="{{ breadcrumb.href }}" [ngClass]="itemBreadCrumb.length - 1 != index ? 'inactive' : 'active'">{{ breadcrumb.page }}</a>
+        <span *ngIf="itemBreadCrumb.length - 1 != index" class="dash-breadcrumb">/</span>
+      </li>
+    </ol>
+  </div>
+  <router-outlet></router-outlet>
+</div>

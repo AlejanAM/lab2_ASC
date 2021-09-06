@@ -1,0 +1,872 @@
+<section class="container py-5 v-service-update">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <header class="mb-5">
+        <h2>Edición de Servicio</h2>
+        <h3>{{ info }}</h3>
+        <h4>Entidad: {{ organization?.details.name }}</h4>
+      </header>
+      <main>
+        <form [formGroup]="serviceForm">
+          <wizard class="catalog-wizard" navBarLayout="large-filled-symbols" navigationMode="strict">
+            <wizard-step navigationSymbol="1">
+              <div class="form-group row">
+                <label for="in-name" class="col-4 col-form-label text-right">Nombre</label>
+                <div class="col-8">
+                  <input type="text" maxlength="300" class="form-control" id="in-name" formControlName="name" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-code" class="col-4 col-form-label text-right">Código</label>
+                <div class="col-8">
+                  <input type="text" maxlength="45" class="form-control" id="in-code" formControlName="code" />
+                  <div *ngIf="!validName" class="alert alert-danger">
+                    <span>Nombre es requerido.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-description" class="col-4 col-form-label text-right">Descripción</label>
+                <div class="col-8">
+                  <textarea class="form-control" id="in-description" rows="3" formControlName="description"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-image" class="col-4 col-form-label text-right">Imágenes</label>
+                <div class="col-8">
+                  <div>
+                    <label for="file1">
+                      <img class="cursor-pointer" src="./assets/img/statistic/Adjuntar_icono.png"
+                        alt="Haga click para adjuntar imagen" />
+                    </label>
+                    <input class="hide" id="file1" (change)="onChangeImageFile($event, 1)" type="file"
+                      accept=".jpg,.jpeg,.png" #fileInput1 />
+                    <a *ngIf="!image1Name" tabindex="0" aria-label="Adjuntar primer imagen" class="e-attach" #lblImage1
+                      (click)="fileInput1.click()">Adjuntar imagen</a>
+                    <a *ngIf="image1Name" class="e-attach" #lblImage1 (click)="fileInput1.click()">
+                      {{ image1Name }}
+                    </a>
+                  </div>
+                  <div>
+                    <label for="file2">
+                      <img class="cursor-pointer" src="./assets/img/statistic/Adjuntar_icono.png"
+                        alt="Haga click para adjuntar imagen" />
+                    </label>
+                    <input class="hide" id="file2" (change)="onChangeImageFile($event, 2)" type="file"
+                      accept=".jpg,.jpeg,.png" #fileInput2 />
+                    <a *ngIf="!image2Name" tabindex="0" aria-label="Adjuntar segunda imagen" class="e-attach" #lblImage2
+                      (click)="fileInput2.click()">Adjuntar imagen</a>
+                    <a *ngIf="image2Name" class="e-attach" #lblImage2 (click)="fileInput2.click()">
+                      {{ image2Name }}
+                    </a>
+                  </div>
+                  <div>
+                    <label for="file3">
+                      <img class="cursor-pointer" src="./assets/img/statistic/Adjuntar_icono.png"
+                        alt="Haga click para adjuntar imagen" />
+                    </label>
+                    <input class="hide" id="file3" (change)="onChangeImageFile($event, 3)" type="file"
+                      accept=".jpg,.jpeg,.png" #fileInput3 />
+                    <a *ngIf="!image3Name" tabindex="0" aria-label="Adjuntar tercer imagen" class="e-attach" #lblImage3
+                      (click)="fileInput3.click()">Adjuntar imagen</a>
+                    <a *ngIf="image3Name" class="e-attach" #lblImage3 (click)="fileInput3.click()">
+                      {{ image3Name }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row l-multiple-in" formArrayName="certificates" id="certificate">
+                <div class="c-multiple-in" *ngFor="
+                    let certificate of sharedService.getControls(
+                      serviceForm,
+                      'certificates'
+                    );
+                    let i = index
+                  ">
+                  <label for="in" class="col-4 col-form-label text-right">Certificaciones</label>
+                  <div class="col-6 left-border">
+                    <div class="form-group" [formGroupName]="i">
+                      <span>
+                        <label for="in-certificate-name">Nombre</label>
+                      </span>
+                      <input type="text" maxlength="45" class="form-control" id="in-certificate-name"
+                        formControlName="name" />
+                    </div>
+
+                    <div class="form-group" [formGroupName]="i">
+                      <div class="c-md-in">
+                        <span>
+                          <label for="in-certificate-description">Descripción</label>
+                        </span>
+                        <input type="text" class="form-control" id="in-certificate-description"
+                          formControlName="description" />
+                      </div>
+                    </div>
+
+                    <div class="form-group" [formGroupName]="i">
+                      <span>
+                        <label for="in-expiration-date">Fecha de expiración</label>
+                      </span>
+                      <input class="form-control" formControlName="expirationDate" type="date"
+                        id="in-expiration-date" />
+                    </div>
+                  </div>
+                  <div class="c-btn-options" [formGroupName]="i">
+                    <div class="c-btn-2" *ngIf="
+                        serviceForm.controls.certificates.controls.length > 1
+                      ">
+                      <button class="btn-1 minus u-height-0" (click)="
+                          itemService.removeCertificateField(i, serviceForm)
+                        "></button>
+                    </div>
+
+                    <div class="c-btn-2 text-center">
+                      <button class="btn-1 plus u-height-0" (click)="
+                          itemService.addCertificateField(
+                            formBuilder,
+                            serviceForm
+                          )
+                        "></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" formArrayName="legalPermissions">
+                <div *ngFor="
+                    let legalPermission of sharedService.getControls(
+                      serviceForm,
+                      'legalPermissions'
+                    );
+                    let i = index
+                  " class="c-multiple-in form-group">
+                  <label for="dd-legal-permissions" class="col-4 col-form-label text-right">Permisos Legales</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <select id="dd-legal-permissions" class="form-control" formControlName="legalPermission" (change)="
+                        onChangeDropDownValidation(
+                          'legalPermissions',
+                          'legalPermission'
+                        )
+                      ">
+                      <option *ngFor="let index of legalPermissions" [value]="index.idPk">
+                        {{ index.name }}</option>
+                    </select>
+                    <div class="alert alert-danger" [hidden]="legalPermissionDropDown.isValid">
+                      <span>Selección de permisos legales no valido.</span>
+                    </div>
+                  </div>
+                  <div class="c-btn-2" *ngIf="
+                      serviceForm.controls.legalPermissions.controls.length > 1
+                    ">
+                    <button class="btn-1 minus u-height-1" (click)="
+                        itemService.removeLegalPermissionField(i, serviceForm)
+                      "></button>
+                  </div>
+
+                  <div class="c-btn-2" *ngIf="legalPermissions.length > 1">
+                    <button class="btn-1 plus u-height-1" (click)="
+                        itemService.addLegalPermissionField(
+                          formBuilder,
+                          serviceForm,
+                          legalPermissions
+                        )
+                      "></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" formArrayName="addresses">
+                <div *ngFor="
+                    let address of sharedService.getControls(
+                      serviceForm,
+                      'addresses'
+                    );
+                    let i = index
+                  " class="c-multiple-in form-group">
+                  <label for="in-stock-parts" class="col-4 col-form-label text-right">Dirección</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <select id="dd-addresses" class="form-control" formControlName="address" (change)="
+                        onChangeDropDownValidation('addresses', 'address')
+                      ">
+                      <option *ngFor="let index of addresses" [value]="index.idPk">
+                        {{ index.address }}</option>
+                    </select>
+                    <div class="alert alert-danger" [hidden]="addressDropDown.isValid">
+                      <span>Selección de sectores no valido.</span>
+                    </div>
+                  </div>
+                  <div class="c-btn-2" *ngIf="serviceForm.controls.addresses.controls.length > 1">
+                    <button class="btn-1 minus u-height-2" (click)="
+                        itemService.removeAddressField(
+                          i,
+                          formBuilder,
+                          serviceForm
+                        )
+                      "></button>
+                  </div>
+
+                  <div class="c-btn-2" *ngIf="addresses > 1">
+                    <button class="btn-1 plus u-height-2" (click)="
+                        itemService.addAddressField(
+                          formBuilder,
+                          serviceForm,
+                          addresses
+                        )
+                      "></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row l-check-in">
+                <label for="in-check" class="col-4 col-form-label text-right">Costo por rango</label>
+                <div class="col-8 c-check enbl">
+                  <div class="form-check enbl group">
+                    <input type="checkbox" id="in-check" class="form-check-input square enbl check"
+                      (click)="toggleRangeCost()" />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-reach" class="col-4 col-form-label text-right">Costo del servicio</label>
+                <div class="col-8">
+                  <input type="text" maxlength="4000" class="form-control c-input-cost" id="in-cost"
+                    formControlName="cost" aria-label="Costo del servicio" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-reach" class="col-4 col-form-label text-right">Costo Inicial del servicio</label>
+                <div class="col-8">
+                  <input type="text" maxlength="50" class="form-control c-input-cost" id="in-cost"
+                    formControlName="startCost" aria-label="Costo Inicial del servicio" />
+                    <div *ngIf="!validStartCost" class="alert alert-danger" >
+                      <span>Costo Inicial del Servicio solo acepta valores númericos.</span>
+                    </div>
+                    <div *ngIf="costError != ''" class="alert alert-danger" >
+                      <span>{{ costError }}</span>
+                    </div> 
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-reach" class="col-4 col-form-label text-right">Costo Final del servicio</label>
+                <div class="col-8">
+                  <input type="text" maxlength="50" class="form-control c-input-cost" id="in-cost"
+                    formControlName="endCost" aria-label="Costo Final del servicio" />
+                    <div *ngIf="!validEndCost" class="alert alert-danger" >
+                      <span>Costo Final del Servicio solo acepta valores númericos.</span>
+                    </div>
+                    <div *ngIf="costError != ''" class="alert alert-danger" >
+                      <span>{{ costError }}</span>
+                    </div> 
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-reach" class="col-4 col-form-label text-right">Fines</label>
+                <div class="col-8">
+                  <textarea class="form-control" id="in-reach" rows="3" formControlName="reach"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-objective" class="col-4 col-form-label text-right">Objetivos</label>
+                <div class="col-8">
+                  <textarea class="form-control" id="in-objective" rows="3" formControlName="objective"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row l-check-in">
+                <label for="op-sex" class="col-4 col-form-label text-right">Dirigido a población</label>
+                <div class="col-8 c-check enbl">
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-sex-both" [value]="2"
+                      formControlName="sex" />
+                    <label class="form-check-label" for="op-sex-both">
+                      Ambos
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-sex-male" [value]="1"
+                      formControlName="sex" />
+                    <label class="form-check-label" for="op-sex-male">
+                      Masculino
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-sex-female" [value]="0"
+                      formControlName="sex" />
+                    <label class="form-check-label" for="op-sex-female">
+                      Femenino
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row l-check-in c-last">
+                <label for="in-description" class="col-4 col-form-label text-right">Servicio para mujeres en estado de
+                  embarazo</label>
+                <div class="col-8 c-check enbl">
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-is-pregnant-na" [value]="2"
+                      checked formControlName="isForPregnant" />
+                    <label class="form-check-label" for="op-is-pregnant-na">
+                      No aplica
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-is-pregnant-yes" [value]="1"
+                      checked formControlName="isForPregnant" />
+                    <label class="form-check-label" for="op-is-pregnant-yes">
+                      Sí
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-is-pregnant-no" [value]="0"
+                      formControlName="isForPregnant" />
+                    <label class="form-check-label" for="op-is-pregnant-no">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group text-center c-btn-1 c-wizard-btn">
+                <button type="button" class="btn-1" (click)="nextInfo()" nextStep>
+                  Siguiente
+                </button>
+              </div>
+            </wizard-step>
+
+            <wizard-step navigationSymbol="2">
+              <div class="form-group row l-check-in">
+                <label class="col-4 col-form-label text-right">Disponible</label>
+                <div class="col-8 c-check enbl">
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-visible-yes" [value]="true"
+                      checked formControlName="visibility" />
+                    <label class="form-check-label" for="op-visible-yes">
+                      Sí
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-visible-no" [value]="false"
+                      formControlName="visibility" />
+                    <label class="form-check-label" for="op-visible-no">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" formGroupName="daysToOperation">
+                <div class="col-4 text-right">
+                  <article>
+                    <label class="col-form-label">Días disponibles</label>
+                  </article>
+                </div>
+                <div class="col-7">
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-monday"
+                      formControlName="monday" />
+                    <label class="form-check-label" for="ch-day-monday">
+                      Lunes
+                    </label>
+                  </div>
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-tuesday"
+                      formControlName="tuesday" />
+                    <label class="form-check-label" for="ch-day-tuesday">
+                      Martes
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-wednesday"
+                      formControlName="wednesday" />
+                    <label class="form-check-label" for="ch-day-wednesday">
+                      Miércoles
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-thursday"
+                      formControlName="thursday" />
+                    <label class="form-check-label" for="ch-day-thursday">
+                      Jueves
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-friday"
+                      formControlName="friday" />
+                    <label class="form-check-label" for="ch-day-friday">
+                      Viernes
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-saturday"
+                      formControlName="saturday" />
+                    <label class="form-check-label" for="ch-day-saturday">
+                      Sábado
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-sunday"
+                      formControlName="sunday" />
+                    <label class="form-check-label" for="ch-day-sunday">
+                      Domingo
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-responsability" class="col-4 col-form-label text-right">Persona encargada del
+                  servicio</label>
+                <div class="col-8">
+                  <textarea class="form-control" maxlength="4000" id="in-responsability" rows="3"
+                    formControlName="responsability"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row l-check-in">
+                <label class="col-4 col-form-label text-right">Cobertura</label>
+                <div class="col-8 c-check enbl">
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-cover-nacional" [value]="0"
+                      formControlName="cover" />
+                    <label class="form-check-label" for="op-cover-nacional">
+                      Nacional
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-cover-internacional"
+                      [value]="1" formControlName="cover" />
+                    <label class="form-check-label" for="op-cover-internacional">
+                      Internacional
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-cover-regional" [value]="2"
+                      formControlName="cover" />
+                    <label class="form-check-label" for="op-cover-regional">
+                      Regional
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" formArrayName="typesAttention">
+                <div *ngFor="
+                    let typeAttention of sharedService.getControls(
+                      serviceForm,
+                      'typesAttention'
+                    );
+                    let i = index
+                  " class="c-multiple-in form-group">
+                  <label for="dd-type-attentions" class="col-4 col-form-label text-right">Tipo de Atención</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <select id="dd-type-attentions" class="form-control" formControlName="typeAttention" (change)="
+                        onChangeDropDownValidation(
+                          'typesAttention',
+                          'typeAttention'
+                        )
+                      ">
+                      <option *ngFor="let index of typesAttention" [selected]="index.idPk == typeAttention"
+                        [value]="index.idPk">{{ index.name }}</option>
+                    </select>
+                    <div class="alert alert-danger" [hidden]="typeAttentionDropDown.isValid">
+                      <span>Tipo de atención no valido.</span>
+                    </div>
+                  </div>
+                  <div class="c-btn-2" *ngIf="
+                      serviceForm.controls.typesAttention.controls.length > 1
+                    ">
+                    <button class="btn-1 minus u-height-3" (click)="
+                        itemService.removeTypeAttentionField(i, serviceForm)
+                      "></button>
+                  </div>
+
+                  <div class="c-btn-2" *ngIf="typesAttention.length > 1">
+                    <button class="btn-1 plus u-height-3" (click)="
+                        itemService.addTypeAtentionField(
+                          formBuilder,
+                          serviceForm,
+                          typesAttention
+                        )
+                      "></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row l-check-in">
+                <label class="col-4 col-form-label text-right">Horario Extraordinario</label>
+                <div class="col-8 c-check enbl">
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-has-schedule-extra-yes"
+                      [value]="true" checked formControlName="hasScheduleExtra" />
+                    <label class="form-check-label" for="op-has-schedule-extra-yes">
+                      Sí
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-has-schedule-extra-no"
+                      [value]="false" formControlName="hasScheduleExtra" />
+                    <label class="form-check-label" for="op-has-schedule-extra-no">
+                      No
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" formGroupName="serviceDaysToOperation">
+                <div class="col-4 text-right">
+                  <article>
+                    <label class="col-form-label">Días disponibles (horario extraordinario)</label>
+                  </article>
+                </div>
+                <div class="col-7">
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-extra-monday"
+                      formControlName="monday" />
+                    <label class="form-check-label" for="ch-day-extra-monday">
+                      Lunes
+                    </label>
+                  </div>
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-extra-tuesday"
+                      formControlName="tuesday" />
+                    <label class="form-check-label" for="ch-day-extra-tuesday">
+                      Martes
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-extra-wednesday"
+                      formControlName="wednesday" />
+                    <label class="form-check-label" for="ch-day-extra-wednesday">
+                      Miércoles
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-extra-thursday"
+                      formControlName="thursday" />
+                    <label class="form-check-label" for="ch-day-extra-thursday">
+                      Jueves
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-extra-friday"
+                      formControlName="friday" />
+                    <label class="form-check-label" for="ch-day-extra-friday">
+                      Viernes
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-extra-saturday"
+                      formControlName="saturday" />
+                    <label class="form-check-label" for="ch-day-extra-saturday">
+                      Sábado
+                    </label>
+                  </div>
+
+                  <div class="form-check gp-check">
+                    <input type="checkbox" class="form-check-input square sh check" id="ch-day-extra-sunday"
+                      formControlName="sunday" />
+                    <label class="form-check-label" for="ch-dayvs-sunday">
+                      Domingo
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-other-extra" class="col-4 col-form-label text-right">Otro (horario
+                  extraordinario)</label>
+                <div class="col-8">
+                  <textarea class="form-control" maxlength="100" id="in-other-extra" rows="3"
+                    formControlName="otherExtra"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row" formArrayName="typesAttentionExtra">
+                <div *ngFor="
+                    let typeAttention of sharedService.getControls(
+                      serviceForm,
+                      'typesAttentionExtra'
+                    );
+                    let i = index
+                  " class="c-multiple-in form-group">
+                  <label for="dd-type-attentions" class="col-4 col-form-label text-right">Tipo de Atención
+                    Extraordinario</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <select id="dd-type-attentions" class="form-control" formControlName="typeAttentionExtra" (change)="
+                        onChangeDropDownValidation(
+                          'typesAttentionExtra',
+                          'typeAttentionExtra'
+                        )
+                      ">
+                      <option *ngFor="let index of typesAttention" [selected]="index.idPk == typeAttentionExtra"
+                        [value]="index.idPk">{{ index.name }}</option>
+                    </select>
+                    <div class="alert alert-danger" [hidden]="typeAttentionDropDown.isValid">
+                      <span>Tipo de atención no valido.</span>
+                    </div>
+                  </div>
+                  <div class="c-btn-2" *ngIf="
+                      serviceForm.controls.typesAttentionExtra.controls.length >
+                      1
+                    ">
+                    <button class="btn-1 minus u-height-4" (click)="removeTypeAttentionExtraField(i)"></button>
+                  </div>
+
+                  <div class="c-btn-2" *ngIf="typesAttention.length > 1">
+                    <button class="btn-1 plus u-height-4" (click)="addTypeAtentionExtraField()"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row c-last" formArrayName="attentionFrecuency">
+                <div *ngFor="
+                let typeAttention of sharedService.getControls(
+                  serviceForm,
+                  'attentionFrecuency'
+                );
+                let i = index
+              " class="c-multiple-in form-group">
+                  <label for="in-attention-frecuency" class="col-4 col-form-label text-right">Frecuencia de
+                    atención</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <input type="text" maxlength="50" class="form-control" id="in-attention-frecuesncy"
+                      formControlName="attentionFrecuency" aria-label="Frecuencia de atencion extra" />
+                  </div>
+                  <div class="c-btn-2" *ngIf="serviceForm.controls.attentionFrecuency.controls.length > 1">
+                    <button class="btn-1 minus u-height-5" (click)="removeFrequencyExtraAttentionField(i)"></button>
+                  </div>
+                  <div class="c-btn-2">
+                    <button class="btn-1 plus u-height-5" (click)="
+                    addFrequencyExtraAttentionField(f)
+                      "></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group text-center c-btn-1 c-wizard-btn">
+                <button type="button" class="btn-1" (click)="prevInfo()" previousStep>
+                  Anterior
+                </button>
+                <button type="button" class="btn-1" (click)="nextInfo()" nextStep>
+                  Siguiente
+                </button>
+              </div>
+            </wizard-step>
+
+            <wizard-step navigationSymbol="3">
+              <div class="form-group row" formArrayName="sectors">
+                <div *ngFor="
+                    let sector of sharedService.getControls(
+                      serviceForm,
+                      'sectors'
+                    );
+                    let i = index
+                  " class="c-multiple-in form-group">
+                  <label for="dd-division" class="col-4 col-form-label text-right">Clasificación por sector según
+                    Mideplan</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <select id="dd-sector" class="form-control" formControlName="sector"
+                      (change)="onChangeDropDownValidation('sectors', 'sector')">
+                      <option *ngFor="let index of sectors" [selected]="index.idPk == sector" [value]="index.idPk">
+                        {{ index.name }}</option>
+                    </select>
+                    <div class="alert alert-danger" [hidden]="sectorDropDown.isValid">
+                      <span>Clasificación por sector no valido.</span>
+                    </div>
+                  </div>
+                  <div class="c-btn-2" *ngIf="serviceForm.controls.sectors.controls.length > 1">
+                    <button class="btn-1 minus" (click)="removeSectorField(i)"></button>
+                  </div>
+
+                  <div class="c-btn-2">
+                    <button class="btn-1 plus" (click)="addSectorField()"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-image" class="col-4 col-form-label text-right">Fichas técnicas</label>
+                <div class="col-8">
+                  <div>
+                    <label for="file1">
+                      <img class="cursor-pointer" src="./assets/img/statistic/Adjuntar_icono.png"
+                        alt="Haga click para adjuntar archivo" />
+                    </label>
+                    <input class="hide" id="file1" (change)="onChangeDataSheetFile($event, 1)" type="file" #fileProd1
+                      accept=".pdf,.xlsx,.xls,.doc,.docx" />
+                    <a *ngIf="!this.itemFile1.name" tabindex="0" aria-label="Adjuntar primer archivo" class="e-attach"
+                      #lblFile1 (click)="fileProd1.click()">Adjuntar archivo</a>
+                    <a *ngIf="this.itemFile1.name" class="e-attach" #lblFile1 (click)="fileProd1.click()">
+                      {{ this.itemFile1.name }}
+                    </a>
+                  </div>
+                  <div>
+                    <label for="file2">
+                      <img class="cursor-pointer" src="./assets/img/statistic/Adjuntar_icono.png"
+                        alt="Haga click para adjuntar imagen" />
+                    </label>
+                    <input class="hide" id="file2" (change)="onChangeDataSheetFile($event, 2)" type="file"
+                      accept=".pdf,.xlsx,.xls,.doc,.docx" #fileProd2 />
+                    <a *ngIf="!this.itemFile2.name" tabindex="0" aria-label="Adjuntar segundo archivo" class="e-attach"
+                      #lblFile2 (click)="fileProd2.click()">Adjuntar archivo</a>
+                    <a *ngIf="this.itemFile2.name" class="e-attach" #lblFile2 (click)="fileProd2.click()">
+                      {{ this.itemFile2.name }}
+                    </a>
+                  </div>
+                  <div>
+                    <label for="file3">
+                      <img class="cursor-pointer" src="./assets/img/statistic/Adjuntar_icono.png"
+                        alt="Haga click para adjuntar imagen" />
+                    </label>
+                    <input class="hide" id="file3" (change)="onChangeDataSheetFile($event, 3)" type="file"
+                      accept=".pdf,.xlsx,.xls,.doc,.docx" #fileProd3 />
+                    <a *ngIf="!this.itemFile3.name" tabindex="0" aria-label="Adjuntar tercer archivo" class="e-attach"
+                      #lblFile3 (click)="fileProd3.click()">Adjuntar archivo</a>
+                    <a *ngIf="this.itemFile3.name" class="e-attach" #lblFile3 (click)="fileProd3.click()">
+                      {{ this.itemFile3.name }}
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row l-check-in">
+                <label class="col-4 col-form-label text-right">Tipo de servicio</label>
+                <div class="col-8 c-check enbl">
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-is-private-yes" [value]="true"
+                      checked formControlName="isPrivate" />
+                    <label class="form-check-label" for="op-is-private-yes">
+                      Privado
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group c-block-2">
+                    <input type="radio" class="form-check-input square enbl check" id="op-is-private-no" [value]="false"
+                      formControlName="isPrivate" />
+                    <label class="form-check-label" for="op-is-private-no">
+                      Público
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row l-check-in">
+                <label class="col-4 col-form-label text-right">Tipos de apoyos</label>
+                <div class="col-8 c-check enbl">
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-individual" [value]="0"
+                      formControlName="typeSupport" />
+                    <label class="form-check-label" for="op-individual">
+                      Individuales
+                    </label>
+                  </div>
+
+                  <div class="form-check enbl group">
+                    <input type="radio" class="form-check-input square enbl check" id="op-group" [value]="1"
+                      formControlName="typeSupport" />
+                    <label class="form-check-label" for="op-group">
+                      Grupales
+                    </label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-type-deficiency" class="col-4 col-form-label text-right">Tipo de deficiencia</label>
+                <div class="col-8">
+                  <textarea class="form-control" maxlength="300" id="in-type-deficiency" rows="3"
+                    formControlName="typeDeficiency"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row" formArrayName="ages">
+                <div *ngFor="
+                    let age of sharedService.getControls(serviceForm, 'ages');
+                    let i = index
+                  " class="c-multiple-in form-group">
+                  <label for="in-secundary-functions" class="col-4 col-form-label text-right">Grupo etario
+                    (edad)</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <input type="text" formControlName="age" class="form-control" />
+                  </div>
+                  <div class="c-btn-2" *ngIf="serviceForm.controls.ages.controls.length > 1">
+                    <button class="btn-1 minus u-height-5"
+                      (click)="itemService.removeAgeField(i, serviceForm)"></button>
+                  </div>
+                  <div class="c-btn-2">
+                    <button class="btn-1 plus u-height-5" (click)="
+                        itemService.addAgeField(formBuilder, serviceForm)
+                      "></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-other" class="col-4 col-form-label text-right">Otro (persona usuaria)</label>
+                <div class="col-8">
+                  <input type="text" maxlength="4000" class="form-control" id="in-other" formControlName="other" />
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-accessibility" class="col-4 col-form-label text-right">Accesibilidad</label>
+                <div class="col-8">
+                  <input type="text" maxlength="4000" class="form-control" id="in-accessibility"
+                    formControlName="accessibility" />
+                </div>
+              </div>
+
+              <div class="form-group row c-last">
+                <article class="col-4 text-right">
+                  <label for="in-observations" class="lbl-last col-form-label">Observaciones</label>
+                </article>
+                <div class="col-8">
+                  <textarea class="form-control" maxlength="2000" id="in-observations" rows="3"
+                    formControlName="observations"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group text-center c-btn-1 c-wizard-btn">
+                <button type="button" class="btn-1" (click)="prevInfo()" previousStep>
+                  Anterior
+                </button>
+                <button type="button" class="btn-2" (click)="update(serviceForm.value, serviceForm.valid)">
+                  Editar
+                </button>
+              </div>
+            </wizard-step>
+          </wizard>
+        </form>
+      </main>
+    </div>
+  </div>
+</section>
+<app-catalog-notification></app-catalog-notification>
+<app-modal-notifications></app-modal-notifications>

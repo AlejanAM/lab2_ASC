@@ -1,0 +1,91 @@
+$btn-background-color: #264A97;
+$color-wh: #FFFFFF;
+
+.v-profile {
+  .l-profile-edit {
+    .c-form-edit{
+      overflow-y: scroll;
+      height: 54vh;
+      width: 35vw;
+    }
+    .c-profile-edit {
+      .c-btn-1 {
+        .btn-1 {
+          cursor: pointer;
+        }
+      }
+      .c-btn-1 {
+        button {
+          height: 40px;
+          width: 36%;
+          border: none;
+          border-radius: 5px;
+          background-color: $btn-background-color;
+          color: $color-wh;
+          font-family: Helvetica;
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 19px;
+          margin: 10% 0 0 0;
+        }
+      }
+    }
+    header {
+      text-align: center;
+      h3 {
+        height: 29px;
+        color: #264A97;
+        font-family: Helvetica;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 29px;
+      }
+    }
+    .c-provenance {
+      article {
+        label {
+          margin-top: 15px;
+        }
+      }
+    }
+    form {
+      select {
+        height: 38px;
+        border: 1px solid #979797;
+        border-radius: 3px;
+        background-color: #FFFFFF;
+      }
+      input[type="text"],
+      input[type="password"],
+      input[type="email"] {
+        height: 38px;
+        border: 1px solid #979797;
+        border-radius: 3px;
+        background-color: #FFFFFF;
+      }
+      label, span.col-form-label {
+        color: #95A5A6;
+        font-family: Helvetica;
+        font-size: 16px;
+        line-height: 14px;
+        input[type="radio"] {
+          box-sizing: border-box;
+          height: 18px;
+          width: 18px;
+          border: 1px solid #D4D9DE;
+        }
+      }
+    }
+    article {
+      h2 {
+        height: 29px;
+        width: 94px;
+        color: #788998;
+        font-family: Helvetica;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 29px;
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+.c-user-inspect {
+  .c-btn {
+    margin: 10% 0;
+    button {
+      cursor: pointer;
+    }
+    .danger {
+      background: transparent;
+      border: 1px solid #BD3729;
+      border-radius: 1px;
+      color: #BD3729;
+      height: 43px;
+      width: 105px;
+    }  
+    .success {
+      margin-right: 2em;
+      background: transparent;
+      border: 1px solid #2A9FD8;
+      border-radius: 1px;
+      color: #2A9FD8;
+      height: 43px;
+      width: 105px;
+    }
+  }
+}

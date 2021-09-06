@@ -1,0 +1,60 @@
+<div  *ngIf="message" 
+      [ngClass]="message != null ? 
+        'modal fade modal-top inputContainer show' : 
+        'modal modal-top inputContainer fade'" 
+      id="confirmationModal" 
+      style="display: none;"
+      role="alertdialog"
+      [style.display]="message != null ? 'block' : 'none'"
+      aria-labelledby="message-element"
+      aria-modal="true" tabindex="0"
+      >
+      <div class="modal-dialog modal-md">
+        <div class="modal-content modal-content-warning">
+          <div class="modal-header d-block">
+            <h1 class="title-modal-warning w-100 mt-2">Editar Organización</h1>
+          </div>
+          <div class="modal-body p-0 text-justify" [formGroup]="editorForm">
+            <p class="warning-text">
+              Para eliminar las organizaciones relacionadas con este usuario, favor seleccione la equis en una o varias de las organizaciones presentes en la lista.
+            </p>
+        <div formArrayName="organizations">
+          <div *ngFor="let organization of userData.organizations; let index = index" class="checkbox-container mx-auto mt-4">
+            <span class="org-text-padding">{{ organization.name }}</span>
+            <button [attr.aria-label]="'Eliminar organizacion' + organization.name" class="no-style-btn round ml-auto mr-2 pl-2" 
+              (click)="openConfirmation(organization.orgIdPk, userData.idUserPK)"
+              (keyup.enter)="openConfirmation(organization.orgIdPk, userData.idUserPK)"
+              (keydown.enter)="openConfirmation(organization.orgIdPk, userData.idUserPK)"
+              >
+              <input [formControlName]="index" type="checkbox" id="{{ index }}"><label aria-label="'Eliminar organizacion' + organization.name" for="{{ index }}"></label>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer center-block mt-4">
+        <button 
+          tabindex="1"  
+          role="button"  
+          type="button" 
+          class="btn btnAlert" id="cancel-btn" 
+          (click)="message.siFn()"
+          (keyup.enter)="message.siFn()"
+          (keydown.enter)="message.siFn()"
+          >
+          Cancelar
+        </button>
+        <button tabindex="2"  
+          role="button"  
+          type="button" 
+          class="btn btnAlert"
+          (click)="message.siFn()"
+          (keyup.enter)="message.siFn()"
+          (keydown.enter)="message.siFn()"
+          >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div [ngClass]="message != null? 'modal-backdrop fade show' : '' "  style="display: block;"></div>

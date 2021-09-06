@@ -1,0 +1,15 @@
+<div class="dropdown">
+  <div>
+    <div id="c-circle" [hidden]="this.isNewNotification"></div>
+    <span class="cursor-pointer dropdown-toggle c-span" id="dropdownNotifications" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" aria-hidden="true" (click)="hideNotifications()">
+      <i class="fa fa-bell fa-lg"></i>
+    </span>
+
+    <div class="dropdown-menu l-notifications" [ngClass]="{'emp-notification': isEmpty}" aria-labelledby="dropdownNotifications">
+      <div class="dropdown-item c-notification" *ngFor="let notification of notifications">
+        <app-notification [notification] = "notification"></app-notification>
+      </div>
+    </div>
+
+  </div>
+</div>

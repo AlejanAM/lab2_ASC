@@ -1,0 +1,7 @@
+<main *ngIf="show">
+  <app-navbar (onfontsizechange)="onFontSizeChange($event)" *ngIf="(roleId !== 9 && roleId !== 0) && isNavBarEnable()">
+  </app-navbar>
+  <div [ngStyle]="{'font-size': fontSize + 'px' }">
+    <router-outlet></router-outlet>
+  </div>
+</main>

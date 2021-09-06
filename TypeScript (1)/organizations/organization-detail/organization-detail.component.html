@@ -1,0 +1,192 @@
+<section class="container v-organization-detail">
+  <header class="row c-header">
+    <h1 id="org-name">Nombre {{ organizationDetail?.name }}</h1>
+    <span>Cédula Juridica {{ organizationDetail?.dni }}</span>
+    <span *ngIf="organizationDetail.legalRepresentative"
+      >Representante Legal {{ organizationDetail?.legalRepresentative }}</span
+    >
+  </header>
+  <hr />
+  <main>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Tipo de entidad</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ organizationDetail?.organizationType?.name }}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Fines (Alcances)</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ organizationDetail?.reaches }}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Misión</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ organizationDetail?.mision }}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Visión</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ organizationDetail?.vision }}</p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="organizationDetail.objectives">
+      <div class="col-md-2">
+        <span>Objectivos</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ organizationDetail?.objectives }}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Junta Directiva</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="let assembly of organizationDetail.assembly">
+          {{ assembly }}
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Teléfono</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ organizationDetail?.telephone }}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Correo electrónico</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ organizationDetail?.email }}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Página web</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ organizationDetail?.web }}</p>
+      </div>
+    </div>
+    <hr />
+    <div class="row c-block" id="region">
+      <article
+        class="col-12 row"
+        *ngFor="let region of regionsBuilt?.provinces; let i = index"
+      >
+        <div class="col-2 u-display grid">
+          <span class="form-group">Provincia</span>
+        </div>
+        <div class="col-10">
+          <p class="form-group">{{ region.name }}</p>
+        </div>
+        <div class="col-2 u-display grid">
+          <span class="form-group">Canton</span>
+        </div>
+        <div class="col-10">
+          <p class="form-group">{{ regionsBuilt?.cantons[i]?.name }}</p>
+        </div>
+        <div class="col-2 u-display grid">
+          <span class="form-group">Distrito</span>
+        </div>
+        <div class="col-10">
+          <p class="form-group">{{ regionsBuilt?.districts[i]?.name }}</p>
+        </div>
+      </article>
+    </div>
+    <hr />
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Dirección Exacta</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="let addres of organizationDetail?.addresses">
+          {{ addres?.address }}
+        </p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Dirección Waze</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="let address of organizationDetail?.wazeAddress">
+          {{ address }}
+        </p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Horario de atención</span>
+      </div>
+      <div class="col-md-10">
+        <article *ngFor="let schedule of organizationDetail?.dayOperations">
+          <p *ngIf="schedule.available">
+            {{ schedule.day }} {{ schedule.begin }} {{ schedule.typeBegin }}-{{
+              schedule.end
+            }}
+            {{ schedule.typeEnd }}
+          </p>
+        </article>
+      </div>
+    </div>
+    <div class="row c-block" id="social-network">
+      <article class="col-md-2">
+        <span>Redes Sociales</span>
+      </article>
+      <div class="col-md-10">
+        <div
+          class="form-group input-group"
+          *ngIf="organizationDetail.socialNetworksFacebook"
+        >
+          <span>
+            <i class="fa fa-facebook-square" aria-hidden="true"></i>
+          </span>
+          <p>{{ organizationDetail?.socialNetworksFacebook }}</p>
+        </div>
+        <div
+          class="form-group input-group"
+          *ngIf="organizationDetail.socialNetworksTwitter"
+        >
+          <span>
+            <i class="fa fa-twitter-square" aria-hidden="true"></i>
+          </span>
+          <p>{{ organizationDetail?.socialNetworksTwitter }}</p>
+        </div>
+        <div
+          class="form-group input-group"
+          *ngIf="organizationDetail.socialNetworksInstagram"
+        >
+          <span>
+            <i class="fa fa-instagram" aria-hidden="true"></i>
+          </span>
+          <p>{{ organizationDetail?.socialNetworksInstagram }}</p>
+        </div>
+        <div
+          class="form-group input-group"
+          *ngIf="organizationDetail.socialNetworksWhatsapp"
+        >
+          <span>
+            <i class="fa fa-whatsapp" aria-hidden="true"></i>
+          </span>
+          <p>{{ organizationDetail?.socialNetworksWhatsapp }}</p>
+        </div>
+      </div>
+    </div>
+  </main>
+</section>

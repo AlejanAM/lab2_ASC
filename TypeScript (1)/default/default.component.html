@@ -1,0 +1,13 @@
+<div id="default-page-container">
+  <figure class="c-block-1">
+    <img src="{{pathImages[indexImg]}}" [ngClass]="{'coffee-cup': indexImg === 1}" alt="Imagén decorativa">
+  </figure>
+  <article class="c-block-2">
+    <h1 class="default-page-editor-title" [ngClass]="{'text-center': !message}">{{title}}</h1>
+    <p *ngIf="message" class="default-page-editor-text">{{message}}</p>
+  </article>
+  <div class="c-block-1" *ngIf="roleId !== roleAdministrator">
+    <button type="button" name="btnRegistryEntity" class="default-page-editor-btn" (click)="goToCreateOrganization()">Registrar Entidad</button>
+    <button type="button" name="btnSeeTutorial" class="default-page-editor-btn">Ver Tutorial</button>
+  </div>
+</div>

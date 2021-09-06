@@ -1,0 +1,19 @@
+<div class="modal fade" id="modalToDelete" tabindex="-1" role="dialog" aria-labelledby="modalToDelete" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content c-modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title c-modal-title" id="modalToDelete">¿Eliminar?</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="c-modal-p">¿Desea borrar los elementos?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary c-modal-btn" data-dismiss="modal" (click)="deleteOrganizations()">Eliminar</button>
+        <button type="button" class="btn btn-primary c-modal-btn" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

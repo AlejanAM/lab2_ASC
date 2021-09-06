@@ -1,0 +1,620 @@
+<section class="container py-5 v-organization-create">
+  <div class="row">
+    <div class="col-md-6 mx-auto">
+      <header class="mb-5">
+        <h2>Registro de Entidades</h2>
+        <h3>{{info}}</h3>
+      </header>
+      <main>
+        <form [formGroup]="organizationForm">
+          <wizard [ngClass]="getWizardClassName()" navBarLayout="large-filled-symbols" navigationMode="strict">
+
+            <wizard-step navigationSymbol="1">
+
+              <div class="form-group row">
+                <label for="in-name" class="col-4 col-form-label text-right">Nombre</label>
+                <div class="col-8">
+                  <input type="text" class="form-control" maxlength="300" id="in-name" formControlName="name">
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'name'" class="alert alert-danger">
+                      <span>Nombre es requerido.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-dni" class="col-4 col-form-label text-right">Cédula jurídica</label>
+                <div class="col-8">
+                  <input type="text" class="form-control" maxlength="45" id="in-dni" formControlName="dni">
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'dni'" class="alert alert-danger">
+                      <span>Cédula jurídica es requerida.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-organization-type" class="col-4 col-form-label text-right">Tipo de Entidad</label>
+                <div class="col-8">
+                  <select class="form-control" id="in-organization-type" formControlName="organizationType">
+                    <option *ngFor="let organizationType of organizationTypes" [value]="organizationType.idPk">
+                      {{ organizationType.name }}
+                    </option>
+                  </select>
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'organizationType'" class="alert alert-danger">
+                      <span>Tipo de entidad es requerida.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="activateRoleByEntity" class="form-group row">
+                <label for="in-organization-type" class="col-4 col-form-label text-right">Rol de la Entidad</label>
+                <div class="col-8">
+                  <select class="form-control" id="in-organization-type" formControlName="organizationRoles">
+                    <option 
+                      *ngFor="let organizationRole of organizationRoles" 
+                      [value]="organizationRole.idPk"
+                      (change)="changeEntityRole($event.target.value)"
+                      (click)="changeEntityRole($event.target.value)"
+                      >
+                      {{ organizationRole.name }}
+                    </option>
+                  </select>
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'organizationRoles'" class="alert alert-danger">
+                      <span>Rol de la entidad es requerida.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-mision" class="col-4 col-form-label text-right">Misión</label>
+                <div class="col-8">
+                  <textarea class="form-control" id="in-mision" rows="3" formControlName="mision"></textarea>
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'mision'" class="alert alert-danger">
+                      <span>Misión es requerida.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-vision" class="col-4 col-form-label text-right">Visión</label>
+                <div class="col-8">
+                  <textarea class="form-control" id="in-vision" rows="3" formControlName="vision"></textarea>
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'vision'" class="alert alert-danger">
+                      <span>Visión es requerida.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-reach" class="col-4 col-form-label text-right">Fines (Alcances)</label>
+                <div class="col-8">
+                  <textarea class="form-control" id="in-reach" rows="3" formControlName="reaches"></textarea>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-objective" class="col-4 col-form-label text-right">Objetivos</label>
+                <div class="col-8">
+                  <textarea class="form-control" id="in-objective" rows="3" formControlName="objective"></textarea>
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'objective'" class="alert alert-danger">
+                      <span>Objetivo es requerido.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-legal-representative" class="col-4 col-form-label text-right">Representate legal</label>
+                <div class="col-8">
+                  <input type="text" maxlength="45" class="form-control" id="in-legal-representative"
+                    formControlName="legalRepresentative">
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'legalRepresentative'" class="alert alert-danger">
+                      <span>Representante legal es requerido.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div *ngIf="isExternComponent" class="form-group row">
+                <label for="c-user" class="col-4 col-form-label text-right">Representate en el SICID</label>
+                <div class="col-8">
+                  <select class="form-control" id="c-user" formControlName="legalRepresentativeSICID">
+                    <option *ngFor="let user of usersList" [value]="user.idPk">
+                      {{ user.firstName }} {{ user.lastName }}
+                    </option>
+                  </select>
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'legalRepresentativeSICID'" class="alert alert-danger">
+                      <span>Representante en el SICID es obligatorio.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+
+              <div class="form-group row c-last" formArrayName="assemblies">
+                <div *ngFor="let assembly of sharedService.getControls(organizationForm, 'assemblies'); let i=index"
+                  class="c-multiple-in form-group">
+                  <label for="dd-assemblies" class="col-4 col-form-label text-right">Junta Directiva (Miembro)</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <input type="text" formControlName="assembly" class="form-control">
+                  </div>
+                  <div class="c-btn-2" *ngIf="organizationForm.controls.assemblies.controls.length > 1">
+                    <button class="btn-1 minus"
+                      (click)="organizationService.removeAssemblyField(i, organizationForm)"></button>
+                  </div>
+
+                  <div class="c-btn-2">
+                    <button class="btn-1 plus"
+                      (click)="organizationService.addAssemblyField(formBuilder, organizationForm)"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group text-center c-btn-1 c-wizard-btn">
+                <button type="button" class="btn-1" (click)="nextInfo()" nextStep>Siguiente</button>
+              </div>
+            </wizard-step>
+
+            <wizard-step navigationSymbol="2">
+
+              <div class="form-group row">
+                <label for="in-email" class="col-4 col-form-label text-right">Correo electrónico</label>
+                <div class="col-8">
+                  <input type="text" class="form-control" maxlength="300" id="in-email" formControlName="email">
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'email' && error.error == 'required'" class="alert alert-danger">
+                      <span>Correo electrónico es requerido.</span>
+                    </div>
+                    <div *ngIf="error.control == 'email' && error.error == 'pattern'" class="alert alert-danger">
+                      <span>Correo electrónico formato incorrecto.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-web" class="col-4 col-form-label text-right">Página web</label>
+                <div class="col-8">
+                  <input type="text" class="form-control" id="in-web" formControlName="web">
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'web' && error.error == 'maxLength'" class="alert alert-danger">
+                      <span>La página web no puede contener más de 250 caracteres.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row">
+                <label for="in-telephone" class="col-4 col-form-label text-right">Teléfono</label>
+                <div class="col-8">
+                  <input OnlyNumber="true" type="text" maxlength="45" class="form-control" id="in-telephone"
+                    formControlName="telephone">
+                  <div *ngFor="let error of errors">
+                    <div *ngIf="error.control == 'telephone' && error.error == 'required'" class="alert alert-danger">
+                      <span>Número teléfonico es requerido.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row" formArrayName="sectors">
+                <div *ngFor="let sector of sharedService.getControls(organizationForm, 'sectors'); let i=index"
+                  class="c-multiple-in form-group">
+                  <label for="in-sector-address" class="col-4 col-form-label text-right">Dirección Exacta</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <input type="text" class="form-control" id="in-sector-address" formControlName="address">
+                    <div *ngFor="let error of sectorsErrors">
+                      <div *ngIf="error.index == i && error.control == 'address'" class="alert alert-danger">
+                        <span>Dirección exacta <span *ngIf="i > 0">{{ i + 1 }}</span> es requerida.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="c-btn-2" *ngIf="organizationForm.controls.sectors.controls.length > 1">
+                    <button class="btn-1 minus"
+                      (click)="organizationService.removeSectorField(i, organizationForm)"></button>
+                  </div>
+
+                  <div class="c-btn-2">
+                    <button class="btn-1 plus"
+                      (click)="organizationService.addSectorField(formBuilder, organizationForm)"></button>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="form-group row" formArrayName="regions">
+                <div *ngFor="let region of sharedService.getControls(organizationForm, 'regions'); let i=index"
+                  class="c-multiple-in" id="region-form">
+                  <div class="col-12 form-group" [formGroupName]="i">
+                    <div class="row form-group c-region">
+                      <label for="in-province" class="col-3 col-form-label text-right">Provincia</label>
+                      <select class="form-control col-5" id="in-province" formControlName="province"
+                        (change)="getCantons(i)">
+                        <option *ngFor="let province of regions.provinces" [value]="province.id">
+                          {{ province.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="row form-group c-region">
+                      <label for="in-canton" class="col-3 col-form-label text-right">Cantón</label>
+                      <select class="form-control col-2" id="in-canton" formControlName="canton"
+                        (change)="getDistricts(i)">
+                        <option *ngFor="let canton of regions.cantons[i]" [value]="canton.id">
+                          {{ canton.name }}
+                        </option>
+                      </select>
+                      <label for="in-district" class="col-1 col-form-label lbl-district">Distrito</label>
+                      <select class="form-control col-2" id="in-district" formControlName="district">
+                        <option *ngFor="let district of regions.districts[i]" [value]="district.id">
+                          {{ district.name }}
+                        </option>
+                      </select>
+                    </div>
+                    <div class="c-btn-options" [ngClass]="{'add': add !== 0}">
+                      <div class="c-btn-2" *ngIf="organizationForm.controls.regions.controls.length > 1">
+                        <button class="btn-1 minus" (click)="removeRegion(i, organizationForm)"></button>
+                      </div>
+
+                      <div class="c-btn-2">
+                        <button class="btn-1 plus" (click)="addRegion(formBuilder, organizationForm)"></button>
+                      </div>
+                    </div> 
+
+                  </div>
+                </div>
+              </div>
+
+              <hr *ngIf="invalidUser">
+
+              <div *ngIf="invalidUser">
+                <div *ngFor="let region of sharedService.getControls(organizationForm, 'regions'); let i = index"
+                class="form-group row">
+                  <div class="offset-md-2 col-8">
+                    <div *ngFor="let error of regionsErrors">
+                      <div *ngIf="error.index == i && error.control == 'province'" class="alert alert-danger">
+                        <span>Provincia <span *ngIf="i > 0">{{ i + 1 }}</span> es requerida.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="offset-md-2 col-8">
+                    <div *ngFor="let error of regionsErrors">
+                      <div *ngIf="error.index == i && error.control == 'canton'" class="alert alert-danger">
+                        <span>Cantón <span *ngIf="i > 0">{{ i + 1 }}</span> es requerido.</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="offset-md-2 col-8">
+                    <div *ngFor="let error of regionsErrors">
+                      <div *ngIf="error.index == i && error.control == 'district'" class="alert alert-danger">
+                        <span>Distrito <span *ngIf="i > 0">{{ i + 1 }}</span> es requerido.</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="form-group row l-multiple-in" formGroupName="socialNetworks" id="social-networks">
+                <label for="in" class="col-3 col-form-label text-right">Redes Sociales</label>
+                <div class="col-9 left-border">
+                  <div class="form-group input-group">
+                    <span class="col-1">
+                      <i class="fa fa-facebook-f" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control col-11" id="in-facebook" formControlName="facebook">
+                  </div>
+
+                  <div class="form-group input-group">
+                    <span class="col-1">
+                      <i class="fa fa-twitter-square" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control col-11" id="in-twitter" formControlName="twitter">
+                  </div>
+
+                  <div class="form-group input-group">
+                    <span class="col-1">
+                      <i class="fa fa-instagram" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control col-11" id="in-instagram" formControlName="instagram">
+                  </div>
+
+                  <div class="form-group input-group">
+                    <span class="col-1">
+                      <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                    </span>
+                    <input OnlyNumber="true" type="text" class="form-control col-11" id="in-whatsapp"
+                      formControlName="whatsapp">
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row" formArrayName="wazeAddresses">
+                <div
+                  *ngFor="let wazeAddress of sharedService.getControls(organizationForm, 'wazeAddresses'); let i=index"
+                  class="c-multiple-in form-group">
+                  <label for="in-waze-address" class="col-4 col-form-label text-right">Dirección Waze</label>
+                  <div class="col-6" [formGroupName]="i">
+                    <input type="text" formControlName="wazeAddress" class="form-control" id="in-waze-address">
+                  </div>
+                  <div class="c-btn-2" *ngIf="organizationForm.controls.wazeAddresses.controls.length > 1">
+                    <button class="btn-1 minus"
+                      (click)="organizationService.removeWazeAddressesField(i, organizationForm)"></button>
+                  </div>
+
+                  <div class="c-btn-2">
+                    <button class="btn-1 plus"
+                      (click)="organizationService.addWazeAddressesField(formBuilder, organizationForm)"></button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group row l-multiple-in c-last" formArrayName="legalPermissions" id="legal-permissions">
+                <div class="c-multiple-in"
+                  *ngFor="let legalPermission of sharedService.getControls(organizationForm, 'legalPermissions'); let i=index">
+                  <label for="in" class="col-4 col-form-label text-right">Permiso Legal</label>
+                  <div class="col-6 left-border">
+                    <div class="form-group" [formGroupName]="i">
+                      <span>
+                        <label for="in-legal-permission-name">Nombre</label>
+                      </span>
+                      <input type="text" maxlength="45" class="form-control" id="in-legal-permission-name"
+                        formControlName="name">
+                        <div *ngFor="let error of legalPermissionsErrors">
+                          <div *ngIf="error.index == i && error.control == 'name'" class="alert alert-danger">
+                            <span>Nombre <span *ngIf="i > 0">{{ i + 1 }}</span> es requerido.</span>
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group" [formGroupName]="i">
+                      <div class="c-md-in">
+                        <span>
+                          <label for="in-legal-permission-description text-right">Descripción</label>
+                        </span>
+                        <input type="text" class="form-control" id="in-legal-permission-description"
+                          formControlName="description">
+                          <div *ngFor="let error of legalPermissionsErrors">
+                            <div *ngIf="error.index == i && error.control == 'description'" class="alert alert-danger">
+                              <span>Descripción <span *ngIf="i > 0">{{ i + 1 }}</span> es requerida.</span>
+                            </div>
+                          </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group" [formGroupName]="i">
+                      <span>
+                        <label for="in-expiration-date">Fecha de expiración</label>
+                      </span>
+                      <input class="form-control" formControlName="expirationDate" type="date" />
+                      <div *ngFor="let error of legalPermissionsErrors">
+                        <div *ngIf="error.index == i && error.control == 'expirationDate'" class="alert alert-danger">
+                          <span>Fecha de expiración <span *ngIf="i > 0">{{ i + 1 }}</span> es requerida.</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="c-btn-options" [formGroupName]="i">
+                    <div class="c-btn-2" *ngIf="organizationForm.controls.legalPermissions.controls.length > 1">
+                      <button class="btn-1 minus"
+                        (click)="organizationService.removeLegalPermissionField(i, organizationForm)"></button>
+                    </div>
+
+                    <div class="c-btn-2 text-center">
+                      <button class="btn-1 plus"
+                        (click)="organizationService.addLegalPermissionField(formBuilder, organizationForm)"></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group text-center c-btn-1 c-wizard-btn">
+                <button type="button" class="btn-1" (click)="prevInfo()" previousStep>Anterior</button>
+                <button type="button" class="btn-1" (click)="nextInfo()" nextStep>Siguiente</button>
+              </div>
+            </wizard-step>
+
+            <wizard-step navigationSymbol="3" class="c-wizard third">
+              <div class="row text-left c-last" id="l-schedule" formGroupName="daysToOperation">
+                <div class="form-check col-3 text-right u-display flex">
+                  <label class="form-check-label u-mt" for="ch-day-monday" formGroupName="monday">
+                    <input type="checkbox" class="form-check-input square" id="ch-day-monday"
+                      formControlName="available">
+                    Lunes
+                  </label>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="monday">
+                  <input type="text" class="form-control" formControlName="begin">
+                  <select formControlName="typeBegin">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="monday">
+                  <input type="text" class="form-control" formControlName="end">
+                  <select formControlName="typeEnd">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-check col-3 text-right u-display flex">
+                  <label class="form-check-label u-mt" for="ch-day-tuesday" formGroupName="tuesday">
+                    <input type="checkbox" class="form-check-input square" id="ch-day-tuesday"
+                      formControlName="available">
+                    Martes
+                  </label>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="tuesday">
+                  <input type="text" class="form-control" formControlName="begin">
+                  <select formControlName="typeBegin">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="tuesday">
+                  <input type="text" class="form-control" formControlName="end">
+                  <select formControlName="typeEnd">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-check col-3 text-right u-display flex">
+                  <label class="form-check-label u-mt" for="ch-day-wednesday" formGroupName="wednesday">
+                    <input type="checkbox" class="form-check-input square" id="ch-day-wednesday"
+                      formControlName="available">
+                    Miércoles
+                  </label>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="wednesday">
+                  <input type="text" class="form-control" formControlName="begin">
+                  <select formControlName="typeBegin">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="wednesday">
+                  <input type="text" class="form-control" formControlName="end">
+                  <select formControlName="typeEnd">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-check col-3 text-right u-display flex">
+                  <label class="form-check-label u-mt" for="ch-day-thursday" formGroupName="thursday">
+                    <input type="checkbox" class="form-check-input square" id="ch-day-thursday"
+                      formControlName="available">
+                    Jueves
+                  </label>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="thursday">
+                  <input type="text" class="form-control" formControlName="begin">
+                  <select formControlName="typeBegin">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="thursday">
+                  <input type="text" class="form-control" formControlName="end">
+                  <select formControlName="typeEnd">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-check col-3 text-right u-display flex">
+                  <label class="form-check-label u-mt" for="ch-day-friday" formGroupName="friday">
+                    <input type="checkbox" class="form-check-input square" id="ch-day-friday"
+                      formControlName="available">
+                    Viernes
+                  </label>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="friday">
+                  <input type="text" class="form-control" formControlName="begin">
+                  <select formControlName="typeBegin">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="friday">
+                  <input type="text" class="form-control" formControlName="end">
+                  <select formControlName="typeEnd">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-check col-3 text-right u-display flex">
+                  <label class="form-check-label u-mt" for="ch-day-saturday" formGroupName="saturday">
+                    <input type="checkbox" class="form-check-input square" id="ch-day-saturday"
+                      formControlName="available">
+                    Sábado
+                  </label>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="saturday">
+                  <input type="text" class="form-control" formControlName="begin">
+                  <select formControlName="typeBegin">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="saturday">
+                  <input type="text" class="form-control" formControlName="end">
+                  <select formControlName="typeEnd">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-check col-3 text-right u-display flex">
+                  <label class="form-check-label u-mt" for="ch-day-sunday" formGroupName="sunday">
+                    <input type="checkbox" class="form-check-input square" id="ch-day-sunday"
+                      formControlName="available">
+                    Domingo
+                  </label>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="sunday">
+                  <input type="text" class="form-control" formControlName="begin">
+                  <select formControlName="typeBegin">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+                <div class="form-group col-4 c-schedule" formGroupName="sunday">
+                  <input type="text" class="form-control" formControlName="end">
+                  <select formControlName="typeEnd">
+                    <option value="am">am</option>
+                    <option value="pm">pm</option>
+                  </select>
+                </div>
+
+              </div>
+
+              <div class="form-group c-btn-1 c-wizard-btn c-final-step">
+                <button type="button" class="btn-1" (click)="prevInfo()" previousStep>Anterior</button>
+                <button type="button" (click)="save(organizationForm.value, organizationForm.valid)"
+                  class="btn-2">Crear</button>
+              </div>
+            </wizard-step>
+
+          </wizard>
+        </form>
+      </main>
+    </div>
+  </div>
+</section>
+<app-catalog-notification></app-catalog-notification>
+<app-modal-notifications></app-modal-notifications>

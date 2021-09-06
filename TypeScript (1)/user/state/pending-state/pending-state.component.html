@@ -1,0 +1,46 @@
+<div class="row" class="user-state">
+  <div class="col-md-12">
+    <article>
+      <img src="./assets/img/catalog/pending.png" alt="">
+      <h1>Roles Pendientes</h1>
+      <app-search-box class="c-text-box" (emitSearch)="getUserToSearch($event)">
+      </app-search-box>
+    </article>
+    <hr>
+  </div>
+  <div class="col-md-12 c-user-info"
+    *ngFor="let user of usersPending | filter: userToSearch | paginate: { itemsPerPage: 8, currentPage: page }">
+    <div class="col-sm-8">
+      <article class="c-info" (click)="showUser(user.idPk)">
+        <span title="{{user.firstName}}" class="user-name">{{user?.firstName  | truncate : 12}}</span>
+        <span>Cédula: {{user?.identification}}</span>
+      </article>
+    </div>
+    <div class="col-sm-4">
+      <figure>
+        <button type="button" class="c-accept-btn" name="button" (click)="acceptUser(user.idPk)" data-toggle="modal"
+          data-target="#modalToConfirm">
+          <i class="fa fa-check" aria-hidden="true"></i>Aceptar
+        </button>
+        <button type="button" class="c-reject-btn" name="button" (click)="rejectUser(user.idPk)" data-toggle="modal"
+          data-target="#modalToConfirm">
+          <i class="fa fa-times" aria-hidden="true"></i>Rechazar
+        </button>
+      </figure>
+    </div>
+  </div>
+  <div class="row">
+    <p class="c-is-not-result" *ngIf="isNotResult">No se encontraron resultados.</p>
+  </div>
+  <footer class="row l-footer">
+    <div class="col-sm-12 c-pagination">
+      <pagination-controls (pageChange)="page = $event" screenReaderPaginationLabel="Paginación"
+        screenReaderPageLabel="página" screenReaderCurrentLabel="Está en la página" previousLabel="Anterior"
+        nextLabel="Siguiente">
+      </pagination-controls>
+    </div>
+  </footer>
+</div>
+<app-modal-confirmation [modalConfirmationTitle]="titleModalConfirmation"
+  [modalConfirmationBody]="bodyModalConfirmation" (emitBooleanConfirmation)="executeInspection($event)">
+</app-modal-confirmation>

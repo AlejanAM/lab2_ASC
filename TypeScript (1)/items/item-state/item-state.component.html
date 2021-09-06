@@ -1,0 +1,107 @@
+<div class="row" class="item-state">
+
+  <div *ngIf="modeConsultant === modeConsultantPending" class="col-md-12 c-item-state">
+    <div class="col-12">
+      <article class="title-approved">
+        <img class="cursor-pointer" src="./assets/img/catalog/pending.png"
+          alt="Icono que hace referencia a un elemento pendiente">
+        <h1>{{titleModeConsultant}} Pendientes</h1>
+        <app-search-box class="c-text-box" (emitSearch)="getItemToSearch($event)">
+        </app-search-box>
+      </article>
+      <hr>
+    </div>
+  </div>
+
+  <div *ngIf="modeConsultant === modeConsultantAccepted" class="col-md-12 c-item-state">
+    <div class="col-10 title-approved">
+      <article>
+        <img class="cursor-pointer" src="./assets/img/catalog/approve.png"
+          alt="Icono que hace referencia a un elemento aprobado">
+        <h1>{{titleModeConsultant}} Aprobados</h1>
+        <app-search-box class="c-text-box" (emitSearch)="getItemToSearch($event)">
+        </app-search-box>
+        <div class="ic-trash" *ngIf="itemsToDelete.length !== 0">
+          <i class="fa fa-trash c-delete-btn" aria-hidden="true" data-toggle="modal" data-target="#modalToDelete"></i>
+        </div>
+      </article>
+      <hr>
+    </div>
+  </div>
+
+  <div *ngIf="modeConsultant === modeConsultantRejected" class="col-md-12 c-item-state">
+    <div class="col-10 title-approved">
+      <article>
+        <img class="cursor-pointer" src="./assets/img/catalog/rejected.png"
+          alt="Icono que hace referencia a un elemento rechazado">
+        <h1>{{titleModeConsultant}} Rechazados</h1>
+        <app-search-box class="c-text-box" (emitSearch)="getItemToSearch($event)">
+        </app-search-box>
+        <div class="ic-trash" *ngIf="itemsToDelete.length !== 0">
+          <i class="fa fa-trash c-delete-btn" aria-hidden="true" data-toggle="modal" data-target="#modalToDelete"></i>
+        </div>
+      </article>
+      <hr>
+    </div>
+  </div>
+
+  <div *ngIf="!isAdministrator" class="col-md-5 c-prod-info mb-dropdown">
+    <span>Organizaciones</span>
+    <select [(ngModel)]="organizationSelected" class="form-control dd-organization" (change)="selectOrganization()">
+      <option *ngFor="let organization of organizationsUser" [value]="organization.idPk">
+        {{ organization.name }}
+      </option>
+    </select>
+  </div>
+  <div class="col-md-12 c-item-info"
+    *ngFor="let item of items | filter: itemToSearch | paginate: { itemsPerPage: 5, currentPage: page }">
+    <div *ngIf="modeConsultant != modeConsultantPending" class="col-sm-1 check-item">
+      <input class="form-check-input u-pos u-none u-mt u-none u-ml u-none square enbl check" type="checkbox" value=""
+        (click)="addItemToDelete(item.idPk)">
+    </div>
+    <div class="col-sm-8 item-layout">
+      <figure (click)="showProduct(item.idPk)">
+        <img class="cursor-pointer" src="{{item?.image1}}" [alt]="'Imagen de ' + item?.name ">
+      </figure>
+      <article class="c-info" (click)="showProduct(item.idPk)">
+        <span aria-hidden="true" title="{{item.name}}" class="item-name">{{item?.name | truncate: 12}}</span>
+        <span class="sr-only">{{item?.name }}</span>
+        <span>Entidad: {{item?.organizationName | truncate: 30}}</span>
+        <span>Código: {{item?.code}}</span>
+      </article>
+    </div>
+    <div class="col-sm-4">
+      <figure *ngIf="isAdministrator && modeConsultant == modeConsultantPending">
+        <button type="button" class="c-accept-btn" name="button" (click)="acceptItem(item?.idPk)" data-toggle="modal"
+          data-target="#modalToConfirm">
+          <i class="fa fa-check" aria-hidden="true"></i>Aceptar
+        </button>
+        <button type="button" class="c-reject-btn" name="button" (click)="rejectItem(item?.idPk)" data-toggle="modal"
+          data-target="#modalToConfirm">
+          <i class="fa fa-close" aria-hidden="true"></i>Rechazar
+        </button>
+      </figure>
+      <figure class="c-maintance-icon" *ngIf="!isAdministrator">
+        <img src="./assets/img/catalog/editor.png" alt="Editar" (click)="editProduct(item?.idPk)">
+      </figure>
+      <a *ngIf="modeConsultant != modeConsultantPending && isAdministrator"
+        class="c-consult-a u-text-decoration cursor-pointer" (click)="showProduct(item.idPk)">Consultar</a>
+    </div>
+  </div>
+  <div class="row">
+    <p class="c-is-not-result" *ngIf="isNotResult">No se encontraron resultados.</p>
+  </div>
+  <footer class="row l-footer">
+    <div class="col-sm-12 c-pagination">
+      <pagination-controls (pageChange)="page = $event" screenReaderPaginationLabel="Paginación"
+        screenReaderPageLabel="página" screenReaderCurrentLabel="Está en la página" previousLabel="Anterior"
+        nextLabel="Siguiente">
+      </pagination-controls>
+    </div>
+  </footer>
+</div>
+<app-modal-delete [kind]="2" [itemsToDelete]="itemsToDelete" (emitItemsDeleted)="handleItemsDeleted($event)">
+</app-modal-delete>
+<app-modal-confirmation [modalConfirmationTitle]="titleModalConfirmation"
+  [modalConfirmationBody]="bodyModalConfirmation" (emitBooleanConfirmation)="executeInspection($event)">
+</app-modal-confirmation>

@@ -1,0 +1,150 @@
+<app-navbar *ngIf="isNavBarVisible"></app-navbar>
+<section
+  class="v-profile container"
+  [ngClass]="{'py-5': roleId != idRolSuperUser}"
+>
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <section class="l-profile">
+        <ul class="nav nav-tabs" role="tablist">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              data-toggle="tab"
+              href="#profile"
+              role="tab"
+              >{{ titleProfie }}</a
+            >
+          </li>
+          <li class="nav-item text-center">
+            <a class="nav-link" data-toggle="tab" href="#roles" role="tab"
+              >Roles</a
+            >
+          </li>
+        </ul>
+        <div class="tab-content">
+          <div class="tab-pane active" id="profile" role="tabpanel">
+            <div class="l-profile" *ngIf="!toUpdate">
+              <div class="col-md-12 c-profile-info">
+                <section class="left-side">
+                  <div class="profile-pic" *ngIf="roleId !== 0">
+                    <span>{{ userName }}</span>
+                  </div>
+                  <div class="profile-pic choose-role" *ngIf="roleId === 0">
+                    <span>{{ userName }}</span>
+                  </div>
+                </section>
+                <section class="right-side">
+                  <h3>{{ user?.firstName }} {{ user?.lastName }}</h3>
+                  <span>Identificación: {{ user?.identification }}</span>
+                  <span *ngIf="user?.sex">Sexo: Masculino</span>
+                  <span *ngIf="!user?.sex">Sexo: Femenino</span>
+                  <div
+                    id="user-organization"
+                    *ngIf="existOrganization && user?.organizations.length <= 1"
+                  >
+                    <span>Entidad:</span>
+                    <ul>
+                      <li *ngFor="let organization of user?.organizations">
+                        {{ organization.name }}
+                      </li>
+                    </ul>
+                  </div>
+                  <div
+                    id="user-organizations"
+                    *ngIf="existOrganization && user?.organizations.length > 1"
+                  >
+                    <span>Entidad:</span>
+                    <ul>
+                      <li *ngFor="let organization of user?.organizations">
+                        {{ organization.name }}
+                      </li>
+                    </ul>
+                  </div>
+                  <span>Dirección: {{ user?.address }}</span>
+                  <span>Profesión / Oficio: {{ user?.profession }}</span>
+                  <span>Correo Electrónico: {{ user?.email }}</span>
+                  <article class="c-restore-pass">
+                    <span>Contraseña: xxxxxxxxx</span>
+                    <a class="cursor-pointer" (click)="goToResetPassword()"
+                      >Cambiar contraseña</a
+                    >
+                  </article>
+                </section>
+              </div>
+              <div class="row mt-4">
+                <div class="col-md-4 offset-md-3">
+                  <button
+                    class="c-custom-btn"
+                    type="button"
+                    (click)="editProfile()"
+                  >
+                    Editar Perfil
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="tab-pane" id="roles" role="tabpanel">
+            <div class="l-profile" *ngIf="!toUpdate">
+              <div class="col-md-12 c-profile-info">
+                <section class="left-side">
+                  <div class="profile-pic" *ngIf="roleId !== 0">
+                    <span>{{ userName }}</span>
+                  </div>
+                  <div class="profile-pic choose-role" *ngIf="roleId === 0">
+                    <span>{{ userName }}</span>
+                  </div>
+                </section>
+                <section class="right-side">
+                  <h3>{{ user?.firstName }} {{ user?.lastName }}</h3>
+
+                  <div *ngIf="roleId !== idRolSuperUser" class="d-list">
+                    <span class="subtitle">Roles registrados:</span>
+                    <span *ngFor="let rol of user?.roles">{{ rol.name }}</span>
+                    <span class="subtitle">Roles disponibles:</span>
+                    <div
+                      class="c-profile-info"
+                      *ngIf="unsubscribeRoles.length !== 0"
+                    >
+                      <span
+                        *ngFor="let role of unsubscribeRoles; let i = index"
+                      >
+                        <input type="checkbox" (change)="roleSubscribe(i)" />
+                        {{ role.name }}
+                      </span>
+                    </div>
+                    <span *ngIf="unsubscribeRoles.length === 0"
+                      >No se tiene ningún rol registrado</span
+                    >
+                    <div class="c-btn-1" *ngIf="isRequested">
+                      <button class="btn-1" (click)="addRolesToSubscribe()">
+                        Solicitar rol
+                      </button>
+                    </div>
+                  </div>
+                  <div *ngIf="roleId === idRolSuperUser">
+                    <span class="subtitle">Roles :</span>
+                    <label
+                      *ngFor="let role of rolesToEditSuperUser"
+                      class="form-check-label c-rol-user"
+                    >
+                      <input
+                        class="form-check-input c-radio-button"
+                        type="checkbox"
+                        [checked]="role.isApproved"
+                        (change)="addRoleToUpdate(role.idPk)"
+                      />
+                      {{ role.name }}
+                    </label>
+                  </div>
+                </section>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+<app-modal-notifications></app-modal-notifications>

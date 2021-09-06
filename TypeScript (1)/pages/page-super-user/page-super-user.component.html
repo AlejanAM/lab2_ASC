@@ -1,0 +1,91 @@
+<app-navbar (onfontsizechange)="onFontSizeChange($event)"></app-navbar>
+<section
+  class="v-principal-page-super-user"
+  [ngStyle]="{ 'font-size': fontSize + 'px' }"
+>
+  <div class="l-horizontal-menu">
+    <div class="list-group">
+      <div class="list-group-item list-group-item-action">
+        <article class="menu-text">
+          <p
+            [ngClass]="{ active: selectedFatherIndex === 1 }"
+            (click)="enableHorizontalElements(1)"
+          >
+            Usuarios
+          </p>
+        </article>
+        <ul class="menu-list" [hidden]="isUserSelected">
+          <li
+            class="list-item"
+            [ngClass]="{ active: selectedChildIndex === 1 }"
+            (click)="selectChildState(1)"
+            [routerLink]="['create-user']"
+          >
+            Crear
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{ active: selectedChildIndex === 2 }"
+            (click)="selectChildState(2)"
+            [routerLink]="['view-list-users']"
+          >
+            Ver Usuarios
+          </li>
+        </ul>
+      </div>
+      <div class="list-group-item list-group-item-action">
+        <article class="menu-text">
+          <p
+            [ngClass]="{ active: selectedFatherIndex === 2 }"
+            (click)="enableHorizontalElements(2)"
+          >
+            Entidades
+          </p>
+        </article>
+        <ul class="menu-list" [hidden]="isOrganizationSelected">
+          <li
+            class="list-item"
+            [ngClass]="{ active: selectedChildIndex === 3 }"
+            (click)="selectChildState(3)"
+            [routerLink]="['legal-representative']"
+          >
+            Usuarios responsables por entidades
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{ active: selectedChildIndex === 4 }"
+            (click)="selectChildState(4)"
+            [routerLink]="['list-organization-by-user']"
+          >
+            Lista de entidades por usuario
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{ active: selectedChildIndex === 5 }"
+            (click)="selectChildState(5)"
+            [routerLink]="['new-organization']"
+          >
+            Crear Entidad
+          </li>
+        </ul>
+      </div>
+      <div class="list-group-item list-group-item-action">
+        <article class="menu-text">
+          <p [ngClass]="{'active': selectedFatherIndex === 3}" (click)="enableHorizontalElements(3)">Informes</p>
+        </article>
+        <ul class="menu-list" [hidden]="isReportSelected">
+          <li class="list-item" [ngClass]="{'active': selectedChildIndex === 6}" (click)="selectChildState(6)"
+            [routerLink]="['create-report']">Generar nuevo</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <main
+    class="l-main"
+    [ngClass]="{
+      'c-main': selectedChildIndex === 1 || selectedChildIndex === 2
+    }"
+  >
+    <router-outlet></router-outlet>
+  </main>
+</section>

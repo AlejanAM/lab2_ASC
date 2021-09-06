@@ -1,0 +1,98 @@
+$color-blue: #4A68A9;
+$color-black: #464646;
+$breadcrumb-gray: #565656;
+$breadcrumb-blue: #3E578E;
+$gray-color: #707070;
+$dark-gray: #565656;
+$color-white: #ffffff;
+$light-gray: #979797;
+$dark-red: #721c24;
+$light-red: #f8d7da;
+
+.no-style-btn {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+.row {
+    margin: 0;
+    padding: 0;
+ }
+ .c-custom-btn {
+   background-color: $color-blue;
+   color: $color-white;
+   border: 1px solid $color-blue;
+   height: 35px;
+   width: 120px;
+   cursor: pointer;
+ }
+ .c-custom-btn:disabled {
+  background-color: $gray-color !important;
+}
+ .bread-crumb {
+    font-size: 14px;
+    padding: 0.80em 0.3em 0.80em 0.3em; 
+    .breadcrumb-item {
+      list-style: none;
+      padding: 0.3em;
+    }
+    .dash-breadcrumb {
+      padding-left: 1.3em;
+    }
+    .inactive {
+      color: $breadcrumb-gray;
+    }
+    .active {
+      color: $breadcrumb-blue;
+      font-weight: bold;
+    }
+  }
+ .title-container {
+    width: 90%;
+    padding-bottom: 15px;
+    border-bottom: 2px solid $light-gray;
+ 
+    .user-icon {
+       color: $gray-color;
+       font-size: 55px;
+       font-weight: normal;
+    }
+    .title-page {
+       font-family: Helvetica;
+       font-weight: bold;
+       font-size: 26px;
+       margin-top: 15px;
+       color: $dark-gray;
+    }
+ }
+.c-reports {
+  margin: 2vh 3vw;
+  .section-form {
+    margin-left: 4em;
+    .subtitle {
+      font-size: 16px;
+    }
+    .c-custom-select {
+      width: 280px;
+      height: 35px;
+      background-color: $color-white;
+      border: 1px solid $light-gray;
+      display: flex;
+      margin-left: 15%;
+    }
+    .error-message {
+      margin-left: 33%;
+      width: 280px;
+      text-align: center;
+      background-color: $light-red;
+      color: $dark-red;
+      border-color: $dark-red;
+      font-size: 15px;
+      padding: 0.8em;
+    }
+  }
+}

@@ -1,0 +1,139 @@
+$color-blue: #4A68A9;
+$color-black: #464646;
+$breadcrumb-gray: #565656;
+$breadcrumb-blue: #3E578E;
+$gray-color: #707070;
+$dark-gray: #565656;
+
+.no-style-btn {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}
+.row {
+  padding: 0;
+  margin: 0;
+}
+.l-list-user {
+  margin: 2vh 3vw;
+
+  .l-title {
+    article {
+      h3 {
+        color: #788998;
+        font-family: Helvetica;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 29px;
+        margin-top: 6px;
+      }
+      display: flex;
+      .c-delete-btn {
+        color: #788998;
+        font-size: 40px;
+      }
+      hr {
+        border-top: 2px solid rgba(0, 0, 0, 0.1);
+      }
+    }
+  }
+
+  .c-list-user {
+    height: 60vh;
+    .btn-icon {
+      color: $color-blue;
+      padding: 5px;
+      border: 1px solid $color-blue;
+      border-radius: 3px;
+      margin: 5px;
+    }
+    .btn-icon:hover {
+      cursor: pointer;
+    }
+    .l-footer-list-user {
+      position: relative;
+      bottom: 2vh;
+    }
+    .c-user-info {
+      margin-bottom: 1em;
+      padding-left: 5%;
+      display: flex;
+      article.c-info {
+        cursor: pointer;
+        display: grid;
+      }
+      .c-consult-a {
+        color: #1f4895;
+        font-family: Helvetica;
+        font-size: 16px;
+        font-style: oblique;
+        line-height: 0;
+        text-decoration: underline;
+      }
+      .c-maintance-icon {
+        margin-left: 2em;
+        img {
+          height: 21px;
+          width: 21px;
+          cursor: pointer;
+          margin: 1em 0 0 1em;
+        }
+      }
+      span,
+      .user-name {
+        font-family: Helvetica;
+        font-size: 14px;
+        line-height: 15px;
+        color: $color-black;
+      }
+      .user-name {
+        font-weight: bold;
+      }
+    }
+  }
+}
+.row {
+   margin: 0;
+   padding: 0;
+}
+.bread-crumb {
+   font-size: 14px;
+   padding: 0.80em 0.3em 0.80em 0.3em; 
+   .breadcrumb-item {
+     list-style: none;
+     padding: 0.3em;
+   }
+   .dash-breadcrumb {
+     padding-left: 1.3em;
+   }
+   .inactive {
+     color: $breadcrumb-gray;
+   }
+   .active {
+     color: $breadcrumb-blue;
+     font-weight: bold;
+   }
+ }
+.title-container {
+   width: 90%;
+   padding-bottom: 15px;
+   border-bottom: 2px solid $gray-color;
+
+   .user-icon {
+      color: $gray-color;
+      font-size: 55px;
+      font-weight: normal;
+   }
+   .title-page {
+      font-family: Helvetica;
+      font-weight: bold;
+      font-size: 26px;
+      margin-top: 15px;
+      color: $dark-gray;
+   }
+}
+

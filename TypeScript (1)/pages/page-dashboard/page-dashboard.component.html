@@ -1,0 +1,329 @@
+<section class="v-principal-page v-principal-page-dash-board">
+  <div role="menubar" class="l-horizontal-menu">
+    <div class="list-group">
+      <div
+        class="list-group-item list-group-item-action"
+        *ngIf="isAdministratorRol"
+        aria-live="assertive"
+      >
+        <article class="menu-text">
+          <span
+            role="button"
+            [ngClass]="{active: selectedFatherIndex === 4}"
+            (click)="enableHorizontalElements(4)"
+            >Roles</span
+          >
+        </article>
+        <ul
+          [ngClass]="{
+            'menu-list-ONG': !isCatalog,
+            'menu-list-Catalog': isCatalog
+          }"
+          [hidden]="isRoleSelected"
+          aria-label="Seleccione una opción de la lista."
+        >
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 1}"
+            (click)="selectChildState(1)"
+          >
+            <a [routerLink]="['users/pending-users']">Pendientes</a>
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 2}"
+            (click)="selectChildState(2)"
+          >
+            <a [routerLink]="['users/acepted-users']">Aprobados</a>
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 3}"
+            (click)="selectChildState(3)"
+          >
+            <a [routerLink]="['users/rejected-users']">Rechazados</a>
+          </li>
+        </ul>
+      </div>
+      <div class="list-group-item list-group-item-action" aria-live="assertive">
+        <article class="menu-text" (click)="enableHorizontalElements(1)">
+          <span role="button" [ngClass]="{active: selectedFatherIndex === 1}">{{
+            titleOrganizations
+          }}</span>
+        </article>
+        <ul
+          [ngClass]="{
+            'menu-list-ONG': !isCatalog,
+            'menu-list-Catalog': isCatalog
+          }"
+          [hidden]="isEntitySelected"
+          aria-label="Seleccione una opción de la lista."
+        >
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 4}"
+            (click)="selectChildState(4)"
+          >
+            <a [routerLink]="['organizations/pending-organizations']"
+              >Pendientes</a
+            >
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 5}"
+            (click)="selectChildState(5)"
+          >
+            <a [routerLink]="['organizations/acepted-organizations']"
+              >Aprobadas</a
+            >
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 6}"
+            (click)="selectChildState(6)"
+          >
+            <a [routerLink]="['organizations/rejected-organizations']">
+              Rechazadas</a
+            >
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 7}"
+            (click)="selectChildState(7)"
+            *ngIf="!isAdministratorRol"
+          >
+            <a [routerLink]="['organizations/organization-create', userId]"
+              >Crear Entidad</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div
+        class="list-group-item list-group-item-action"
+        *ngIf="isAdministratorRol && !isCatalog"
+        aria-live="assertive"
+      >
+        <article class="menu-text">
+          <span
+            role="button"
+            [ngClass]="{active: selectedFatherIndex === 5}"
+            (click)="enableHorizontalElements(5)"
+            >Estadistica</span
+          >
+        </article>
+        <ul
+          [ngClass]="{
+            'menu-list-ONG': !isCatalog,
+            'menu-list-Catalog': isCatalog
+          }"
+          [hidden]="isReportSelected"
+          aria-label="Seleccione una opción de la lista."
+        >
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 16}"
+            (click)="selectChildState(16)"
+          >
+            <a [routerLink]="['organizations/organization-reports', 1]"
+              >Organizaciones por provincia, cantón y distrito</a
+            >
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 20}"
+            (click)="selectChildState(20)"
+          >
+            <a [routerLink]="['organizations/organization-reports', 2]"
+              >Vistas por organizaciones</a
+            >
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 21}"
+            (click)="selectChildState(21)"
+          >
+            <a [routerLink]="['organizations/organization-reports', 3]"
+              >Total de organizaciones</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div
+        class="list-group-item list-group-item-action"
+        *ngIf="isCatalog"
+        aria-live="assertive"
+      >
+        <article class="menu-text" (click)="enableHorizontalElements(2)">
+          <span role="button" [ngClass]="{active: selectedFatherIndex === 2}"
+            >Productos</span
+          >
+        </article>
+        <ul
+          [ngClass]="{
+            'menu-list-ONG': !isCatalog,
+            'menu-list-Catalog': isCatalog
+          }"
+          [hidden]="isProductSelected"
+          aria-label="Seleccione una opción de la lista."
+        >
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 8}"
+            (click)="setParamsItemsConsultant(1, true, 8)"
+          >
+            <a [routerLink]="['item/item-list']">Pendientes</a>
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 9}"
+            (click)="setParamsItemsConsultant(2, true, 9)"
+          >
+            <a [routerLink]="['item/item-list']">Aprobados</a>
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 10}"
+            (click)="setParamsItemsConsultant(3, true, 10)"
+          >
+            <a [routerLink]="['item/item-list']">Rechazados</a>
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 11}"
+            (click)="setParamsItemsConsultant(3, true, 11)"
+            *ngIf="!isAdministratorRol"
+          >
+            <a [routerLink]="['item/create-product', userId]">Crear Producto</a>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="list-group-item list-group-item-action"
+        *ngIf="isCatalog"
+        aria-live="assertive"
+      >
+        <article class="menu-text" (click)="enableHorizontalElements(3)">
+          <span role="button" [ngClass]="{active: selectedFatherIndex === 3}"
+            >Servicios</span
+          >
+        </article>
+        <ul
+          [ngClass]="{
+            'menu-list-ONG': !isCatalog,
+            'menu-list-Catalog': isCatalog
+          }"
+          [hidden]="isServiceSelected"
+          aria-label="Seleccione una opción de la lista."
+        >
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 12}"
+            (click)="setParamsItemsConsultant(1, false, 12)"
+          >
+            <a [routerLink]="['item/item-list']">Pendientes</a>
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 13}"
+            (click)="setParamsItemsConsultant(2, false, 13)"
+          >
+            <a [routerLink]="['item/item-list']">Aprobados</a>
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 14}"
+            (click)="setParamsItemsConsultant(3, false, 14)"
+          >
+            <a [routerLink]="['item/item-list']">Rechazados</a>
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 15}"
+            (click)="setParamsItemsConsultant(15)"
+            *ngIf="!isAdministratorRol"
+          >
+            <a [routerLink]="['item/create-service', userId]">Crear Servicio</a>
+          </li>
+        </ul>
+      </div>
+      <div
+        class="list-group-item list-group-item-action"
+        *ngIf="isAdministratorRol && isCatalog"
+        aria-live="assertive"
+      >
+        <article class="menu-text">
+          <span
+            role="button"
+            [ngClass]="{active: selectedFatherIndex === 6}"
+            (click)="enableHorizontalElements(6)"
+            >Estadistica</span
+          >
+        </article>
+        <ul
+          [ngClass]="{
+            'menu-list-ONG': !isCatalog,
+            'menu-list-Catalog': isCatalog
+          }"
+          [hidden]="isReportSelected"
+          aria-label="Seleccione una opción de la lista."
+        >
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 17}"
+            (click)="selectChildState(17)"
+          >
+            <a [routerLink]="['item/views-report', 1]"
+              >Vistas de productos o servicios</a
+            >
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 18}"
+            (click)="selectChildState(18)"
+          >
+            <a [routerLink]="['item/views-report', 2]"
+              >Cantidad de productos y servicios
+            </a>
+          </li>
+          <li
+            class="list-item"
+            [ngClass]="{active: selectedChildIndex === 19}"
+            (click)="selectChildState(19)"
+          >
+            <a [routerLink]="['item/views-report', 3]"
+              >Cantidad proveedores registrados</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <main class="l-main">
+    <div class="row ml-2">
+      <ol
+        *ngFor="let breadcrumb of itemBreadCrumb; let index = index"
+        class="bread-crumb"
+      >
+        <li class="breadcrumb-item">
+          <a
+            href="{{ breadcrumb.href }}"
+            [ngClass]="
+              itemBreadCrumb.length - 1 != index ? 'inactive' : 'active'
+            "
+            >{{ breadcrumb.page }}</a
+          >
+          <span
+            *ngIf="itemBreadCrumb.length - 1 != index"
+            class="dash-breadcrumb"
+            >/</span
+          >
+        </li>
+      </ol>
+    </div>
+    <div id="main-page-container">
+      <div class="col-md-12 u-pad right left" aria-live="assertive">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </main>
+</section>

@@ -1,0 +1,47 @@
+<div class="c-reports">
+  <div class="row ml-4">
+    <ol aria-current="true" *ngFor="let breadcrumb of itemBreadCrumb; let index = index" class="bread-crumb">
+      <li class="breadcrumb-item">
+        <a href="{{ breadcrumb.href }}" [ngClass]="itemBreadCrumb.length - 1 != index ? 'inactive' : 'active'">{{ breadcrumb.page }}</a>
+        <span *ngIf="itemBreadCrumb.length - 1 != index" class="dash-breadcrumb">/</span>
+      </li>
+    </ol>
+  </div>
+
+  <div class="col-md-12">
+    <div class="row">
+      <div class="mx-auto title-container">
+        <div class="d-flex mt-4">
+          <i class="far fa-user-circle user-icon"></i>
+          <h1 class="ml-3 title-page">{{ htmlLabels[0] }}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form mt-4" [formGroup]="editorForm">
+    <div class="section-form">
+      <h2 class="subtitle">{{ htmlLabels[1] }}</h2>
+      <select class="c-custom-select mx-auto" formControlName="modules">
+        <option disabled="true" [selected]="true">Seleccione el/los datos necesarios</option>
+        <option *ngFor="let module of modules" [value]="module.idPk">
+          {{ module.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="col-md-12 mt-5">
+      <div class="row">
+        <div class="mx-auto title-container">
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-4">
+      <button class="mx-auto c-custom-btn" (click)="generateReports(editorForm.value)" aria-label="Generar informe">
+        <i class="fas fa-download"></i> {{ htmlLabels[2] }}
+      </button>
+    </div>
+  </div>
+
+</div>

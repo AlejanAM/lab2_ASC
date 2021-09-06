@@ -1,0 +1,27 @@
+<div class="row">
+  <div class="col-md-4 mx-auto">
+    <app-items-searched-word (changeShowState)="handleShowState($event)" [isShowing]="showItems"></app-items-searched-word>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-5 mx-auto">
+    <section class="l-configuration-search mx-auto">
+      <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+          <a class="nav-link active" data-toggle="tab" href="#productsByGroups" role="tab">Por espacio de uso</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" data-toggle="tab" href="#productsByCategory" role="tab">Norma técnica ISO 9999:2016</a>
+        </li>
+      </ul>
+      <div class="tab-content u-pad bottom">
+        <div class="tab-pane active" id="productsByGroups" role="tabpanel">
+          <app-item-search-group (changeShowState)="handleShowState($event)" [isShowing]="showItems"></app-item-search-group>
+        </div>
+        <div class="tab-pane" id="productsByCategory" role="tabpanel">
+          <app-item-search-category (changeShowState)="handleShowState($event)" [isShowing]="showItems"></app-item-search-category>
+        </div>
+      </div>
+    </section>
+  </div>
+</div>

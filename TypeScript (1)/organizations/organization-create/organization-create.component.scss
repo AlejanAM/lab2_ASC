@@ -1,0 +1,214 @@
+@import '../organization.component.scss';
+
+
+.error-container {
+  position: relative;
+}
+.v-organization-create {
+  header {
+    text-align: center;
+    h2 {
+      height: 3.28%;
+      color: #264a97;
+      font-family: Helvetica;
+      font-size: 30px;
+      font-weight: bold;
+      line-height: 36px;
+    }
+    h3 {
+      height: 24px;
+      color: #264a97;
+      font-family: Helvetica;
+      font-size: 20px;
+      line-height: 24px;
+    }
+  }
+  main {
+    form {
+      li::after {
+        background: #000 !important;
+        position: absolute;
+        top: -37px;
+        left: calc(50% - 12px);
+        width: 25px;
+        height: 26px;
+        content: '';
+        text-align: center;
+        vertical-align: middle;
+        line-height: 25px;
+        transition: 0.25s;
+        border-radius: 100%;
+        background-color: #e6e6e6;
+        color: black;
+        content: attr(step-symbol);
+      }
+      select {
+        height: 38px;
+        border: 1px solid #979797;
+        border-radius: 3px;
+        background-color: #ffffff;
+      }
+      input[type='text'],
+      input[type='password'],
+      input[type='email'],
+      input[type='date'],
+      textarea {
+        height: 38px;
+        border: 1px solid #979797;
+        border-radius: 3px;
+        background-color: #ffffff;
+      }
+      label {
+        height: 14px;
+        color: #95a5a6;
+        font-family: Helvetica;
+        font-size: unset;
+        line-height: 14px;
+        &.u-mt {
+          line-height: 0;
+          margin-top: -8px;
+          input[type='checkbox'] {
+            margin-bottom: 6px;
+          }
+        }
+        input[type='radio'] {
+          box-sizing: border-box;
+          height: 18px;
+          width: 18px;
+          border: 1px solid #d4d9de;
+        }
+      }
+      .c-last {
+        margin-bottom: 4em;
+      }
+      .u-display {
+        &.flex {
+          display: flex;
+        }
+      }
+      .c-wizard-btn {
+        &.c-final-step {
+          display: grid;
+          button {
+            margin-bottom: 5px;
+            margin-left: auto !important;
+            margin-right: auto !important;
+            width: 30%;
+          }
+        }
+        button {
+          width: 160px;
+          &.btn-1 {
+            margin-right: 16px;
+          }
+        }
+        .btn-2 {
+          border: 2px solid #979797;
+          border-radius: 5px;
+          background-color: #ffffff;
+          color: #979797;
+          font-family: Helvetica;
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 19px;
+          cursor: pointer;
+          &:hover {
+            background-color: #1abc9c;
+            color: #ffffff;
+          }
+        }
+        .disabled.btn-2 {
+          &:hover {
+            background-color: #ffffff;
+            color: #979797;
+          }
+        }
+      }
+      #l-schedule {
+        padding-left: 0;
+      }
+      .c-schedule {
+        display: flex;
+        input,
+        select {
+          color: #95a5a6;
+          font-family: Helvetica;
+          font-size: 16px;
+          line-height: 14px;
+        }
+        input {
+          max-width: 41%;
+          margin: 0 10% 0 0;
+        }
+      }
+      .l-multiple-in {
+        .fieldset-title {
+          margin: 7.5em 0 0 0;
+        }
+        .c-multiple-in {
+          .c-btn-options {
+            top: calc(71% - 66px);
+            right: calc(13% - 74px);
+            &.add {
+              top: calc(-22% - 66px);
+              right: calc(30% - 10em);
+            }
+            .c-btn-2 {
+              height: 39px;
+            }
+          }
+        }
+      }
+      #social-networks {
+        margin-top: 1.5rem;
+        .fa {
+          font-size: xx-large;
+          color: #788998;
+        }
+        span.col-1 {
+          padding-left: 0;
+          padding-right: 3em;
+        }
+      }
+      .c-multiple-in {
+        width: 100%;
+        display: flex;
+        &#region-form {
+          height: 6.5em;
+          .c-region {
+            margin-left: 4.5em;
+            .lbl-district {
+              padding-right: 12.5%;
+            }
+            #in-province {
+              min-width: 49%;
+            }
+          }
+          .c-btn-options {
+            top: calc(-22% - 66px);
+            right: calc(13% - 30px);
+            &.add {
+              top: calc(-22% - 66px);
+              right: calc(30% - 10em);
+            }
+            .c-btn-2 {
+              height: 39px;
+            }
+          }
+        }
+        .c-btn-options {
+          display: flex;
+          position: relative;
+          float: right;
+        }
+      }
+    }
+    .c-wizard {
+      &.third {
+        .form-check {
+          padding-left: 0;
+        }
+      }
+    }
+  }
+}

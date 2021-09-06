@@ -1,0 +1,65 @@
+<div class="c-reports">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="mx-auto title-container">
+        <div class="d-flex mt-4">
+          <i class="far fa-user-circle user-icon"></i>
+          <h1 class="ml-3 title-page">Generar Informe</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form mt-4" [formGroup]="editorForm">
+    <div class="section-form mt-5">
+      <h2 class="subtitle">1. Seleccione el tipo de informe</h2>
+      <select class="c-custom-select mx-auto" formControlName="filter">
+        <option disabled="true" [selected]="true">Tipo</option>
+        <option value="1">Productos</option>
+        <option value="0">Servicios</option>
+      </select>
+    </div>
+
+    <div class="section-form mt-5">
+      <h2 class="subtitle">{{ sectionStep }}. Fecha de inicio</h2>
+      <input
+        type="date"
+        class="c-custom-select mx-auto"
+        formControlName="startDate"
+        (change)="dateChange($event.target.value)"
+      />
+      <div *ngIf="!validStartDate" class="error-message mt-2">
+        <span>La fecha inicial es requerida.</span>
+      </div>
+    </div>
+
+    <div class="section-form mt-5">
+      <h2 class="subtitle">{{ sectionStep + 1 }}. Fecha Final</h2>
+      <input
+        type="date"
+        class="c-custom-select mx-auto"
+        formControlName="endDate"
+        min="{{ startDate }}"
+      />
+      <div *ngIf="!validEndDate" class="error-message mt-2">
+        <span>La fecha final es requerida.</span>
+      </div>
+    </div>
+
+    <div class="col-md-12 mt-5">
+      <div class="row">
+        <div class="mx-auto title-container"></div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <button
+        class="mx-auto c-custom-btn"
+        (click)="generateReports(editorForm.value)"
+        aria-label="Generar informe"
+      >
+        <i class="fas fa-download"></i> Generar
+      </button>
+    </div>
+  </div>
+</div>
+<app-modal-notifications></app-modal-notifications>

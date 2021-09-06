@@ -1,0 +1,54 @@
+<div class="row" class="org-state">
+  <div class="col-md-12 c-org-state">
+    <div class="col-10 title-approved">
+      <article>
+        <img src="./assets/img/catalog/rejected.png" alt="">
+        <h1>Entidades Rechazadas</h1>
+        <app-search-box class="c-text-box" (emitSearch)="getOrganizationToSearch($event)">
+        </app-search-box>
+        <div class="ic-trash" *ngIf="organizationsToDeleteNoApproved.length !== 0">
+          <i class="fa fa-trash c-delete-btn" aria-hidden="true" data-toggle="modal" data-target="#modalToDelete"></i>
+        </div>
+      </article>
+      <hr>
+    </div>
+  </div>
+  <div class="col-md-12 c-org-info"
+    *ngFor="let organization of organizationsRejected | filter: organizationToSearch | paginate: { itemsPerPage: 5, currentPage: page }">
+    <div class="col-sm-1">
+      <input class="form-check-input u-pos u-none u-mt u-none u-ml u-none square enbl check" type="checkbox" value=""
+        (click)="addOrganizationToDelete(organization.idPk)">
+    </div>
+    <div class="col-sm-7">
+      <article class="c-info" (click)="showOrganization(organization.idPk)">
+        <span aria-hidden="true" title="{{organization.name}}"
+          class="org-name">{{organization?.name | truncate : 12}}</span>
+        <span class="sr-only">{{organization?.name}}</span>
+        <span>{{organization?.dni}}</span>
+        <span>{{organization?.legalRepresentative}}</span>
+        <span>{{organization?.email}}</span>
+      </article>
+    </div>
+    <div class="col-sm-4">
+      <figure class="c-maintance-icon" *ngIf="!isAdministrator">
+        <img src="./assets/img/catalog/editor.png" alt="Editar" (click)="updateOrganization(organization.idPk)">
+      </figure>
+      <a *ngIf="isAdministrator" class="cursor-pointer c-consult-a"
+        (click)="showOrganization(organization.idPk)">Consultar</a>
+    </div>
+  </div>
+  <div class="row">
+    <p class="c-is-not-result" *ngIf="isNotResult">No se encontraron resultados.</p>
+  </div>
+  <footer class="row l-footer">
+    <div class="col-sm-12 c-pagination">
+      <pagination-controls (pageChange)="page = $event" screenReaderPaginationLabel="Paginación"
+        screenReaderPageLabel="página" screenReaderCurrentLabel="Está en la página" previousLabel="Anterior"
+        nextLabel="Siguiente">
+      </pagination-controls>
+    </div>
+  </footer>
+</div>
+
+<app-modal-delete [kind]="1" [itemsToDelete]="organizationsToDeleteNoApproved"
+  (emitItemsDeleted)="handleOrganizationsDeleted($event)"></app-modal-delete>

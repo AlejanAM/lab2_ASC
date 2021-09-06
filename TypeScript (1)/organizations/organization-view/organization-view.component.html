@@ -1,0 +1,10 @@
+<app-organization-details></app-organization-details>
+<section class="v-organization-view"
+  *ngIf="!organizationService.checkOrganizationIsNotPending(organization?.isChecked, organization?.isApproved) && roleId === 2">
+  <div class="form-group text-center c-btn-1">
+    <button (click)="updateOrganization()" class="btn-1">Editar</button>
+  </div>
+</section>
+<div class="row" *ngIf="this.activatedRoute.parent.parent.parent.parent.snapshot.url.toString() != pageConsultantPath">
+  <button (click)="backToList()" class="text-center c-btn-back">Volver</button>
+</div>

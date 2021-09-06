@@ -1,0 +1,9 @@
+<section class="input-group l-search mx-auto">
+  <div class="c-btn-search">
+    <button type="button" aria-hidden="true" name="button" (click)="searchProductByName()">
+      <i class="fa fa-search fa-lg"></i>
+    </button>
+  </div>
+  <input type="text" [(ngModel)]="name" class="form-control in-search" placeholder="Buscar" aria-describedby="basic-addon1"
+  (keyup.enter)="searchProductByName()">
+</section>

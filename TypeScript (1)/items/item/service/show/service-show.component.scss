@@ -1,0 +1,107 @@
+@import '../../item.component.scss';
+
+
+.carousel-container {
+  display: block;
+  height: 300px;
+  width: 300px;
+  margin-bottom: 50px;
+}
+.v-service-detail {
+  header.c-header {
+    display: flex;
+    margin: 7% 0 0 0;
+    #service-name {
+      font-size: 20px;
+      font-weight: bold;
+    }
+    .c-service-1 {
+      display: flex;
+
+      img {
+        height: 9em;
+        width: 18%;
+        margin-right: 11px;
+      }
+
+      .u-grid {
+        display: grid;
+        margin-top: 14px;
+        height: auto;
+      }
+    }
+    article {
+      display: grid;
+      height: 5em;
+      margin: 3% 0 0 0;
+    }
+  }
+  main {
+    span {
+      line-height: 25px;
+    }
+    p {
+      color: #B7B7B7;
+      font-family: Helvetica;
+      font-size: 16px;
+      line-height: 17px;
+      margin-top: 6px;
+      margin-bottom: 0;
+    }
+    #social-network {
+      span {
+        margin-right: 3%;
+        .fa {
+          font-size: 32px;
+        }
+      }
+    }
+    .c-block {
+      margin-bottom: 2em;
+      .downloadFile{
+        color: #264A97;
+        text-decoration: underline;
+      }
+      .downloadFile:hover{
+        cursor: pointer;
+      }
+      article {
+        display: flex;
+      }
+      &#region {
+        span {
+          padding-right: 32%;
+          & {
+            line-height: 32px;
+          }
+        }
+        p {
+          line-height: 26px;
+        }
+        #province {
+          padding-right: 32%;
+        }
+      }
+    }
+  }
+  span {
+    color: #788998;
+    font-family: Helvetica;
+    font-size: 17.06px;
+  }
+}
+.c-btn-back{
+  cursor: pointer;
+  margin: 0 auto;
+  margin-bottom: 3vh;
+  height: 40px;
+  width: 160px;
+  border: none;
+  border-radius: 5px;
+  background-color: #264A97;
+  color: #FFFFFF;
+  font-family: Helvetica;
+  font-size: 16px;
+  font-weight: bold;
+  line-height: 19px;
+}

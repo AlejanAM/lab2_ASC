@@ -1,0 +1,38 @@
+<div class="v-search-product mx-auto">
+  <div class="l-categories">
+    <div class="form-group">
+      <label for="category">Clase</label>
+      <select 
+        class="form-control cursor-pointer" 
+        id="category" 
+        [(ngModel)]="category" 
+        (click) = "getSearchLevel2()">
+        <option 
+          [ngValue]="category"
+          *ngIf="category === 0">-Seleccione Clase-</option>
+        <option *ngFor="let item of categoriesSearch1" title="{{ item.name }}" [attr.aria-label]="item.name" [value]="item.idPk">
+          {{item.name | slice:0:80}}
+        </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="subCategory">Subclase</label>
+      <select class="form-control cursor-pointer" id="subCategory" [(ngModel)]="subCategory" (click) = "getSearchLevel3()">
+        <option 
+          [ngValue]="subCategory"
+          *ngIf="subCategory === 0">-Seleccione SubClase-</option>
+        <option *ngFor="let item of categoriesSearch2" title="{{ item.name }}" [attr.aria-label]="item.name" [value]="item.idPk">{{item.name | slice:0:80}}</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="division">División</label>
+      <select class="form-control cursor-pointer" id="division" [(ngModel)]="division" >
+        <option
+          [ngValue]="division"
+          *ngIf="division === 0">-Seleccione División-</option>
+        <option *ngFor="let item of categoriesSearch3" title="{{ item.name }}" [attr.aria-label]="item.name" [value]="item.idPk">{{item.name | slice:0:80}}</option>
+      </select>
+    </div>
+    <button class="cursor-pointer" type="button" name="button" (click)="searchByCategory()">Buscar</button>
+  </div>
+</div>

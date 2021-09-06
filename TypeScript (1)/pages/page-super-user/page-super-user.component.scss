@@ -1,0 +1,118 @@
+$color: #ffffff;
+$font-weight-bold: bold;
+$font-family-helvetica: Helvetica;
+
+.v-principal-page-super-user {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  .l-horizontal-menu {
+    float: left;
+    width: 40%;
+    display: block;
+    border-right: 1px solid;
+    .list-group-item {
+      padding: 0.75rem 0 0 1.25rem;
+    }
+    .list-group-item-action {
+      &:hover {
+        background-color: #ffffff;
+      }
+    }
+    .menu-text {
+      color: #7e8a8b;
+      font-family: Helvetica;
+      line-height: 17px;
+      width: 100%;
+      cursor: pointer;
+      .active {
+        font-weight: bold;
+        color: #000000;
+      }
+      p {
+        font-size: unset !important;
+      }
+    }
+    .menu-list-ONG {
+      list-style-type: none;
+      width: 100%;
+      .list-item {
+        &:hover {
+          height: 29px;
+          width: 100%;
+          background-color: #fbf1cd;
+          padding: 0 5%;
+          cursor: pointer;
+        }
+      }
+      li.active {
+        background-color: #fbf1cd;
+        font-weight: bold;
+        padding: 5px 0 2px 0;
+        border-right: 2px solid #efc306;
+        &:hover {
+          background-color: #fbf1cd;
+          padding: 5px 0 2px 0;
+        }
+      }
+    }
+    .menu-list-Catalog {
+      list-style-type: none;
+      width: 100%;
+      .list-item {
+        &:hover {
+          height: 29px;
+          width: 100%;
+          background-color: #d5f5e3;
+          padding: 0 5%;
+          cursor: pointer;
+        }
+      }
+      li.active {
+        background-color: #d5f5e3;
+        font-weight: bold;
+        padding: 5px 0 2px 0;
+        border-right: 5px solid #16a085;
+        &:hover {
+          background-color: #d5f5e3;
+          padding: 5px 0 2px 0;
+        }
+      }
+    }
+  }
+  .l-main {
+    float: left;
+    width: 100%;
+  }
+  .padding-layout {
+    padding: 3% 5%;
+  }
+}
+
+.c-main {
+  overflow: scroll;
+}
+
+.menu-list {
+  list-style-type: none;
+  width: 100%;
+  .list-item {
+    &:hover {
+      height: 29px;
+      width: 100%;
+      background-color: #b9c4dc;
+      padding: 0 5%;
+      cursor: pointer;
+    }
+  }
+  li.active {
+    background-color: #b9c4dc;
+    font-weight: bold;
+    padding: 5px 0 2px 0;
+    border-right: 2px solid #b9c4dc;
+    &:hover {
+      background-color: #b9c4dc;
+      padding: 5px 0 2px 0;
+    }
+  }
+}

@@ -1,0 +1,131 @@
+<app-navbar *ngIf="roleId !== idAdministratorRol || isNavBarVisible"></app-navbar>
+<section class="container v-profile">
+  <div class="row">
+    <div class="col-md-6 mx-auto l-profile-edit">
+      <article>
+        <h2>{{titleProfie}}</h2>
+      </article>
+      <hr>
+      <header>
+        <h3 class="mb-0">Actualizar Perfil</h3>
+      </header>
+      <form [formGroup]="profileForm" class="frm-mtop c-form-edit" [ngClass]="{'c-form-edit': roleId === idAdministratorRol}">
+
+        <div class="form-group row">
+          <label for="in-first-name" class="col-4 col-form-label text-right">Nombre</label>              
+          <div class="col-8">
+            <input type="text" maxlength="50" class="form-control" id="in-first-name" formControlName="firstName">
+            <div *ngIf="profileForm.controls.firstName.hasError('required') && profileForm.controls.firstName.touched" class="alert alert-danger">
+              <span>Nombre es requerido.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="in-last-name" class="col-4 col-form-label text-right">Apellidos</label>              
+          <div class="col-8">
+            <input type="text" maxlength="50" class="form-control" id="in-last-name" formControlName="lastName">
+            <div *ngIf="profileForm.controls.lastName.hasError('required') && profileForm.controls.lastName.touched" class="alert alert-danger">
+              <span>Apellidos son requeridos.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row c-provenance">
+          <article class="col-sm-4 text-right">
+            <span class="col-form-label">Procedencia</span>
+          </article>
+          <div class="col-sm-8">
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input-user-create radio" id="op-has-schedule-national" [value]="true" checked formControlName="provenance" (change)="handleProvenanceChange()">
+              <label class="form-check-label" for="op-has-schedule-national">Nacional</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input-user-create radio" id="op-has-schedule-foreign" [value]="false" formControlName="provenance" (change)="handleProvenanceChange()">
+              <label class="form-check-label" for="op-has-schedule-foreign">Extranjero</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="in-dni" class="col-4 col-form-label text-right">Identificación</label>
+          <div class="col-8">
+            <input [textMask]="dniMask" maxlength="45" type="text" class="form-control" id="in-dni" formControlName="dni">
+            <div *ngIf="profileForm.controls.dni.hasError('required') && profileForm.controls.dni.touched" class="alert alert-danger">
+              Identificación es requerida.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="in-address" class="col-4 col-form-label text-right">Direccion</label>              
+          <div class="col-8">
+            <input type="text" maxlength="100" class="form-control" id="in-address" formControlName="address">
+            <div *ngIf="profileForm.controls.address.hasError('required') && profileForm.controls.address.touched" class="alert alert-danger">
+              Dirección es requerida.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="in-telephone" class="col-4 col-form-label text-right">Teléfono</label>              
+          <div class="col-8">
+            <input OnlyNumber="true" maxlength="45" type="text" class="form-control" id="in-telephone" formControlName="telephone" pattern="[0-9]*">
+            <div *ngIf="profileForm.controls.telephone.hasError('required') && profileForm.controls.telephone.touched" class="alert alert-danger">
+              Teléfono es requerido.
+            </div>
+            <div *ngIf="profileForm.controls.telephone.hasError('pattern') && !profileForm.controls.telephone.hasError('required')" class="alert alert-danger">
+              <span>Teléfono solo acepta valores númericos.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row c-provenance">
+          <article class="col-sm-4 text-right">
+            <span class="col-form-label">Sexo</span>
+          </article>
+          <div class="col-sm-8">
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input-user-create radio" id="op-sex-male" [value]="true" checked formControlName="sex">
+              <label class="form-check-label" for="op-sex-male">Masculino</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input type="radio" class="form-check-input-user-create radio" id="op-sex-female" [value]="false" formControlName="sex">
+              <label class="form-check-label" for="op-sex-female">Femenino</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="in-email" class="col-4 col-form-label text-right">Correo electrónico</label>              
+          <div class="col-8">
+            <input type="email" maxlength="512" class="form-control" id="in-email" formControlName="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+            <div *ngIf="profileForm.controls.email.hasError('required') && profileForm.controls.email.touched" class="alert alert-danger">
+              Correo electrónico es requerido.
+            </div>
+            <div *ngIf="profileForm.controls.email.hasError('pattern') && !profileForm.controls.email.hasError('required')" class="alert alert-danger">
+              <span>Formato de correo electrónico incorrecto</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="in-profession" class="col-4 col-form-label text-right">Profesión / oficio</label>              
+          <div class="col-8">
+            <input type="text" maxlength="45" class="form-control" id="in-profession" formControlName="profession">
+            <div *ngIf="profileForm.controls.profession.hasError('required') && profileForm.controls.profession.touched" class="alert alert-danger">
+              <span>Profesión / Oficio es requerido.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="c-profile-edit">
+          <div class="text-center c-btn-1">
+            <button class="btn-1 no-margin" type="button" [ngClass]="{'disabled': !profileForm.valid}" [disabled]="!profileForm.valid" (click)="updateProfile(profileForm.value, profileForm.valid)">Actualizar Cuenta</button>              
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+<app-modal-notifications></app-modal-notifications>

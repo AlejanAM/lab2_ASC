@@ -1,0 +1,47 @@
+<div  *ngIf="message" 
+      [ngClass]="message != null ? 
+        'modal fade show' : 
+        'modal fade'" 
+      id="confirmationModal" 
+      style="display: none;"
+      role="alertdialog"
+      [style.display]="message != null ? 'block' : 'none'"
+      aria-labelledby="message-element"
+      aria-modal="true" tabindex="0"
+      >
+      <div class="modal-dialog modal-md">
+        <div class="modal-content modal-content-warning">
+          <div class="modal-header d-block">
+            <h1 class="title-modal-warning w-100 mt-2">¿Eliminar?</h1>
+          </div>
+          <div class="modal-body p-0 text-justify">
+            <p class="warning-text">
+              Al eliminar las organizaciones u organización seleccionada, el usuario no tendrá vínculo con ella, ¿está seguro que desea continuar con este proceso?            </p>
+          </div>
+      <div class="modal-footer center-block mt-4">
+        <button 
+        tabindex="1"  
+          role="button"  
+          type="button" 
+          class="btn btnAlert" id="cancel-btn" 
+          (click)="message.siFn()"
+          (keyup.enter)="message.siFn()"
+          (keydown.enter)="message.siFn()"
+          >
+          Cancelar
+        </button>
+        <button tabindex="2"  
+          role="button"  
+          type="button" 
+          class="btn btnAlert"
+          (click)="delete()"
+          (keyup.enter)="delete()"
+          (keydown.enter)="delete()"
+          >
+          Aceptar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div [ngClass]="message != null? 'modal-backdrop fade show' : '' "  style="display: block;"></div>

@@ -1,0 +1,42 @@
+<div class="l-legal-represenative">
+  <div class="l-choose-user-organization">
+    <h1>Representante legal de una entidad</h1>
+    <hr>
+    <form [formGroup]="legalRepresentativeForm">
+      <div class="c-form row">
+        <div class="col-sm-6 form-group row">
+          <div class="l-in">
+            <label for="c-user" class="col-6 col-form-label text-left">Representante Legal : </label>
+            <select class="form-control c-in" id="c-user" formControlName="userId">
+              <option *ngFor="let user of usersList" [value]="user.idPk">
+                {{ user.firstName }} {{ user.lastName }}
+              </option>
+            </select>
+          </div>
+          <div *ngIf="legalRepresentativeForm.controls.userId.hasError('required')"
+            class="mx-auto alert alert-danger c-error">
+            <span>El usuario representante legal es requerido.</span>
+          </div>
+        </div>
+
+        <div class="col-sm-6 form-group row">
+          <div class="l-in">
+            <label for="c-organization" class="col-6 col-form-label text-right">Entidad : </label>
+            <select class="form-control c-in" id="c-organization" formControlName="organizationId">
+              <option *ngFor="let organization of organizarionsList" [value]="organization.idPk">
+                {{ organization.name }}
+              </option>
+            </select>
+          </div>
+          <div *ngIf="legalRepresentativeForm.controls.organizationId.hasError('required')"
+            class="mx-auto alert alert-danger c-error">
+            <span>La entidad a representar es requerida.</span>
+          </div>
+        </div>
+      </div>
+    </form>
+    <button type="button" class="btn btn-primary" [disabled]="!legalRepresentativeForm.valid"
+      (click)="saveLegalRepresentative()" data-dismiss="modal">Registrar</button>
+  </div>
+</div>
+<app-modal-notifications></app-modal-notifications>

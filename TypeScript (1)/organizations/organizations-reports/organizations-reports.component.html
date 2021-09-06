@@ -1,0 +1,89 @@
+<div class="c-reports">
+  <div class="col-md-12">
+    <div class="row">
+      <div class="mx-auto title-container">
+        <div class="d-flex mt-4">
+          <i class="far fa-user-circle user-icon"></i>
+          <h1 class="ml-3 title-page">Generar Informe</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form mt-4" [formGroup]="editorForm">
+    <div *ngIf="organization" class="section-form mt-5">
+      <h2 class="subtitle">1. Seleccione el estado de las organizaciones</h2>
+      <select class="c-custom-select mx-auto" formControlName="filter">
+        <option disabled="true" [value]="4" [selected]="true">Estado</option>
+        <option *ngFor="let type of organizationsType" [value]="type.idPk">
+          {{ type.name }}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="views" class="section-form mt-5">
+      <h2 class="subtitle">1. Vistas por organizaciones</h2>
+      <select class="c-custom-select mx-auto" formControlName="viewsFilter">
+        <option disabled="true" [value]="4" [selected]="true">Estado</option>
+        <option *ngFor="let type of organizationsType" [value]="type.idPk">
+          {{ type.name }}
+        </option>
+      </select>
+    </div>
+    <div *ngIf="location" class="section-form mt-3">
+      <h2 class="subtitle">1. Provincias</h2>
+      <select
+        class="c-custom-select mx-auto"
+        name="province"
+        id="province"
+        (change)="provinceSelected($event.target.value)"
+        formControlName="province"
+      >
+        <option value="null" disabled selected>Provincia</option>
+        <option *ngFor="let provinces of provincesArray" value="{{ provinces.id }}">
+          {{ provinces.name }}
+        </option>
+      </select>
+      <div aria-live="assertive" *ngIf="!validProvince" class="error-message mt-2">
+        <span>Provincia es requerido.</span>
+      </div>
+      <h2 class="subtitle mt-3">2. Cantones</h2>
+      <select
+        class="c-custom-select mx-auto"
+        (change)="cantonSelected($event.target.value)"
+        formControlName="canton"
+      >
+        <option *ngIf="selectedCanton === 0">Cantón</option>
+        <option *ngFor="let cantons of cantonsArray" [value]="cantons.id">
+          {{ cantons.name }}
+        </option>
+      </select>
+      <div aria-live="assertive" *ngIf="!validCanton" class="error-message mt-2">
+        <span>Cantón es requerido.</span>
+      </div>
+      <h2 class="subtitle mt-3">3. Distritos</h2>
+      <select class="c-custom-select mx-auto" formControlName="distric">
+        <option *ngIf="selectedDistrict === 0">Distrito</option>
+        <option *ngFor="let districs of districsArray" [value]="districs.id">
+          {{ districs.name }}
+        </option>
+      </select>
+      <div aria-live="assertive" *ngIf="!validDistric" class="error-message mt-2">
+        <span>Distrito es requerido.</span>
+      </div>
+    </div>
+    <div class="col-md-12 mt-5">
+      <div class="row">
+        <div class="mx-auto title-container"></div>
+      </div>
+    </div>
+    <div class="row mt-4">
+      <button
+        class="mx-auto c-custom-btn"
+        (click)="generateReports(editorForm.value)"
+        aria-label="Generar informe"
+      >
+        <i class="fas fa-download"></i> Generar
+      </button>
+    </div>
+  </div>
+</div>
+<app-modal-notifications></app-modal-notifications>

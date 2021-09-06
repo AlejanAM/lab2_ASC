@@ -1,0 +1,50 @@
+<ul class="nav nav-tabs" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" data-toggle="tab" role="tab" (click) = "selectingCondition(1)">Pendientes</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" role="tab" (click) = "selectingCondition(2)">Aprobadas</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" data-toggle="tab" role="tab" (click) = "selectingCondition(3)">No aprobadas</a>
+  </li>
+</ul>
+
+<div class="list-group" [hidden]="isApprovedSelected">
+  <div *ngFor="let organization of organizationsApproved" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col-sm-8">
+        <app-organization-no-approved [organization]="organization"></app-organization-no-approved>
+      </div>
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-primary" (click) = 'navigate(organization.idPk)' >Revisar Entidad</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="list-group" [hidden]="isApprovedNoSelected">
+  <div *ngFor="let organization of organizationsNoApproved" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col-sm-8">
+        <app-organization-no-approved [organization]="organization"></app-organization-no-approved>
+      </div>
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-primary" (click) = 'navigate(organization.idPk)' >Revisar Entidad</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="list-group" [hidden]="isPendingSelected">
+  <div *ngFor="let organization of organizationsPending" class="list-group-item list-group-item-action flex-column align-items-start">
+    <div class="row">
+      <div class="col-sm-8">
+        <app-organization-no-approved [organization]="organization"></app-organization-no-approved>
+      </div>
+      <div class="col-sm-4">
+        <button type="button" class="btn btn-primary" (click) = 'navigate(organization.idPk)' >Revisar Entidad</button>
+      </div>
+    </div>
+  </div>
+</div>

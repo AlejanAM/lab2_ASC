@@ -1,0 +1,36 @@
+.modal {
+  .modal-dialog {
+    .modal-content {
+      .modal-header {
+        h3 {
+          &.c-modal-title {
+            margin-left: auto !important;
+            margin-right: auto !important;
+            margin-top: 0.7em;
+            margin-bottom: .7em;
+          }
+        }
+      }
+      .modal-footer {
+        .c-modal-btn {
+          font-size: 16px;
+          font-weight: bold;
+
+          &.delete {
+            border: 1px solid #565656;
+            background-color: #ffffff;
+            color: #565656;
+          }
+          
+          &.cancel {
+            background-color: #264A97;
+          }
+        }
+      }
+    }
+  }
+
+  .u-mr {
+    margin-right: 29px;
+  }
+}

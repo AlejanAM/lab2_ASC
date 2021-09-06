@@ -1,0 +1,35 @@
+$color: #FFFFFF;
+$font-weight-bold: bold;
+$font-family-helvetica: Helvetica;
+
+.l-search {
+  margin: 0 0 10% 0;
+  .in-search {
+    border-radius: 3px;
+    background-color: #F3F4F5;
+  }
+  input::placeholder {
+    color: #95A5A6;
+    font-family: $font-family-helvetica;
+    font-size: 14px;
+    font-style: oblique;
+    line-height: 17px;
+    text-align: left;
+  }
+  .c-btn-search {
+    height: 38px;
+    width: 38px;
+    background-color: #264A97;
+    button {
+      cursor: pointer;
+      color: $color;
+      background-color: #264A97;
+      -webkit-transform: rotate(90deg);
+      transform: rotate(90deg);
+      border: none;
+      padding: 24%;
+      height: 37px;
+      width: 37px;
+    }
+  }
+}

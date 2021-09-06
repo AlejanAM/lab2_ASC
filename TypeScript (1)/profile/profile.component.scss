@@ -1,0 +1,171 @@
+$btn-background-color: #264A97;
+$blue-btn: #3E578E;
+$color-wh: #FFFFFF;
+$color-gray-btn: #DEDEDE;
+$color-black-btn: #333333;
+
+.v-profile {
+  .c-custom-btn {
+    height: 35px;
+    width: 165px;
+    background-color: $blue-btn;
+    color: $color-wh;
+    font-family: Helvetica;
+    border: 1px solid $blue-btn;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  #change-status-btn {
+    background-color: $color-gray-btn;
+    color: $color-black-btn;
+    border: 1px solid $color-gray-btn;
+  }
+  .l-profile, .l-profile-edit {
+    margin: 3% 0;
+    hr {
+      border-top: 2px solid rgba(0,0,0,.1);
+    }
+    .right-side {
+      .c-profile-info {
+        display: grid;
+      }
+    }
+    .c-profile-info {
+      display: flex;
+      h3 {
+        height: 22px;
+        color: $btn-background-color;
+        font-family: Helvetica;
+        font-size: 18px;
+        font-weight: bold;
+        line-height: 22px;
+      }
+      #user-organization {
+        height: auto;
+      }
+      #user-organizations {
+        height: auto;
+        display: grid;
+      }
+      span {
+        height: 32px;
+        font-size: 16px;
+        &.subtitle {
+          font-weight: bold;
+        }
+      }
+
+      .c-btn-1 {
+        margin-bottom: 10px;
+        button {
+          &.btn-1 {
+            height: 23px;
+            width: 105px;
+            background-color: #264A97;
+            color: #FFFFFF;
+            font-family: Helvetica;
+            line-height: 19px;
+          }
+        }
+      }
+      .c-restore-pass {
+        a {
+          height: 12px;
+          width: 88px;
+          color: #227FBB;
+          font-family: Helvetica;
+          font-size: 16px;
+          font-style: oblique;
+          line-height: 12px;
+        }
+      }
+      .right-side {
+        overflow-y: scroll;
+        height: 49vh;
+        width: 27vw;
+        display: grid;
+        padding: 5% 0% 0;
+      }
+      .c-rol-user {
+        margin-left: 4vw;
+        display: flex;
+        .c-radio-button{
+          margin-bottom: 7px;
+        }
+      }
+      .left-side {
+        padding: 1em 2em 0;
+        .profile-pic {
+          vertical-align: middle;
+          border: 1px solid rgba(255,255,255,0.2);
+          background-color: #16A085;
+          color: #FFFFFF;
+          font-weight: bold;
+          line-height: 36px;
+          margin: .425em 0;
+          height: 8em;
+          width: 8em;
+          border-radius: 4em;
+          span {
+            font-size: 4em;
+            position: relative;
+            top: 50px;
+            left: 18px;
+            cursor: default;
+          }
+          &.choose-role {
+            box-sizing: border-box;
+            height: 91.5px;
+            width: 96.5px;
+            border: 2.5px solid #788998;
+            background-color: #FFFFFF;
+            & > span {
+              color: #28384B;
+              font-family: Helvetica;
+              font-size: 42px;
+              position: relative;
+              top: 28px;
+              left: 15px;
+            }
+          }
+        }
+      }
+      &.tab-roles {
+        display: grid;
+      }
+    }
+    .c-profile-edit {
+      .c-btn-1 {
+        .btn-1 {
+          cursor: pointer;
+        }
+      }
+      .c-btn-1 {
+        button {
+          height: 40px;
+          width: 50%;
+          border: none;
+          border-radius: 5px;
+          background-color: $btn-background-color;
+          color: $color-wh;
+          font-family: Helvetica;
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 19px;
+          margin: 10% 0 0 0;
+        }
+      }
+    }
+    ul {
+      li.nav-item {
+        a.nav-link {
+          color: #464a4c;
+          &.active {
+            font-weight: bold;
+            color: #264A97;
+          }
+        }
+      }
+    }
+  }
+}

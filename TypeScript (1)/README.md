@@ -1,0 +1,1 @@
+# SICID Catalog module

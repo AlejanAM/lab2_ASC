@@ -1,0 +1,70 @@
+.v-user-detail {
+  header.c-header {
+    display: flex;
+    #user-name {
+      color: #788998;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    span {
+      line-height: 28px;
+    }
+    figure {
+      img {
+        height: 9em;
+        width: 10em;
+      }
+    }
+    article {
+      display: grid;
+      height: 5em;
+      margin: 3% 0 0 0;
+    }
+  }
+  main {
+    span {
+      line-height: 25px;
+    }
+    p {
+      color: #b7b7b7;
+      font-family: Helvetica;
+      font-size: 16px;
+      line-height: 17px;
+      margin-top: 4px;
+      margin-bottom: 0;
+    }
+    #social-network {
+      span {
+        margin-right: 3%;
+        .fa {
+          font-size: 32px;
+        }
+      }
+    }
+    .c-block {
+      margin-bottom: 2em;
+      article {
+        display: flex;
+      }
+      &#region {
+        span {
+          padding-right: 32%;
+          & {
+            line-height: 32px;
+          }
+        }
+        p {
+          line-height: 26px;
+        }
+        #province {
+          padding-right: 32%;
+        }
+      }
+    }
+  }
+  span {
+    color: #788998;
+    font-family: Helvetica;
+    font-size: 17.06px;
+  }
+}

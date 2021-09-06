@@ -1,0 +1,168 @@
+<div class="row" class="item-state" *ngIf="selectedChildState === 10">
+  <div class="col-md-12">
+    <article>
+      <img src="./assets/img/catalog/pending.png" alt="">
+      <h3>Servicios Pendientes</h3>
+    </article>
+    <hr>
+  </div>
+  <div class="col-md-5 c-serv-info mb-dropdown" *ngIf="rolId === 2">
+    <span>Organizaciones</span>
+    <select [(ngModel)]="organizationSelected" class="form-control dd-organization" (change)="selectOrganization()">
+      <option *ngFor="let organization of organizationsUser" [value]="organization.idPk">
+        {{ organization.name }}
+      </option>
+    </select>
+  </div>
+  <div class="col-md-12 c-item-info" *ngFor="let item of itemsPending | paginate: { itemsPerPage: 3, currentPage: page }">
+    <div class="col-sm-8 item-layout">
+      <figure (click)="showService(item.idPk)">
+        <img src="{{item?.image1}}">
+      </figure>
+      <article class="c-info" (click)="showService(item.idPk)">
+        <span class="item-name">Nombre: {{item?.name}}</span>
+        <span>Código: {{item?.code}}</span>
+      </article>
+    </div>
+    <div class="col-sm-4">
+      <figure *ngIf="rolId === 1">
+        <button type="button" class="c-accept-btn" name="button" (click) = "acceptItem(item.idPk)">
+          <i class="fa fa-check" aria-hidden="true"></i>Aceptar
+        </button>
+        <button type="button" class="c-reject-btn" name="button" (click) = "rejectItem(item.idPk)">
+          <i class="fa fa-times" aria-hidden="true"></i>Rechazar
+        </button>
+      </figure>
+    </div>
+  </div>
+  <footer class="row l-footer">
+    <div class="col-sm-12 c-pagination">
+      <pagination-controls 
+        (pageChange)="page = $event"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"></pagination-controls>
+    </div>
+  </footer>
+</div>
+
+<div class="row" class="item-state" *ngIf="selectedChildState === 11">
+  <div class="col-md-12 c-item-state">
+    <div class="col-sm-8 item-layout">
+      <article>
+        <img src="./assets/img/catalog/approve.png" alt="">
+        <h3>Servicios Aprobados</h3>
+      </article>
+    </div>
+    <div class="col-sm-2">
+      <i class="fa fa-trash c-delete-btn" aria-hidden="true" data-toggle="modal" data-target="#modalToDelete" (click) = "deletingApproved()"></i>
+    </div>
+  </div>
+  <hr>
+  <div class="col-md-5 c-serv-info mb-dropdown" *ngIf="rolId === 2">
+    <span>Organizaciones</span>
+    <select [(ngModel)]="organizationSelected" class="form-control dd-organization" (change)="selectOrganization()">
+      <option *ngFor="let organization of organizationsUser" [value]="organization.idPk">
+        {{ organization.name }}
+      </option>
+    </select>
+  </div>
+  <div class="col-md-12 c-item-info" *ngFor="let item of itemsApproved | paginate: { itemsPerPage: 3, currentPage: page }">
+    <div class="col-sm-1 check-item">
+      <input type="checkbox" value="" (click) = "addItemToDeleteApproved(item.idPk)">
+    </div>
+    <div class="col-sm-7 item-layout">
+      <figure (click)="showService(item.idPk)">
+        <img src="{{item?.image1}}">
+      </figure>
+      <article class="c-info" (click)="showService(item.idPk)">
+        <span class="item-name">Nombre: {{item?.name}}</span>
+        <span>Código: {{item?.code}}</span>
+      </article>
+    </div>
+    <div class="col-sm-4">
+      <figure class="c-maintance-icon" *ngIf="rolId === 2">
+        <img src="./assets/img/catalog/editor.png" alt="Editar" (click)="editService(item.idPk)">
+      </figure>
+      <a *ngIf="rolId === 1" class="cursor-pointer c-consult-a" (click)="showService(item?.idPk)">Consultar</a>
+    </div>
+  </div>
+  <footer class="row l-footer">
+    <div class="col-sm-12 c-pagination">
+      <pagination-controls 
+        (pageChange)="page = $event"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"></pagination-controls>
+    </div>
+  </footer>
+</div>
+
+<div class="row" class="item-state" *ngIf="selectedChildState === 12">
+  <div class="col-md-12 c-item-state">
+    <div class="col-sm-8">
+      <article>
+        <img src="./assets/img/catalog/rejected.png" alt="">
+        <h3>Servicios Rechazados</h3>
+      </article>
+    </div>
+    <div class="col-sm-2">
+      <i class="fa fa-trash c-delete-btn" aria-hidden="true" data-toggle="modal" data-target="#modalToDelete" (click) = "deletingNoApproved()"></i>
+    </div>
+  </div>
+  <hr>
+  <div class="col-md-5 c-serv-info mb-dropdown" *ngIf="rolId === 2">
+    <span>Organizaciones</span>
+    <select [(ngModel)]="organizationSelected" class="form-control dd-organization" (change)="selectOrganization()">
+      <option *ngFor="let organization of organizationsUser" [value]="organization.idPk">
+        {{ organization.name }}
+      </option>
+    </select>
+  </div>
+  <div class="col-md-12 c-item-info" *ngFor="let item of itemsNoApproved | paginate: { itemsPerPage: 3, currentPage: page }">
+    <div class="col-sm-1 check-item">
+      <input type="checkbox" value="" (click) = "addItemToDeleteNoApproved(item.idPk)">
+    </div>
+    <div class="col-sm-7 item-layout">
+      <figure (click)="showService(item.idPk)">
+        <img src="{{item?.image1}}">
+      </figure>
+      <article class="c-info">
+        <span class="item-name">Nombre: {{item?.name}}</span>
+        <span>Código: {{item?.code}}</span>
+      </article>
+    </div>
+    <div class="col-sm-4">
+      <figure class="c-maintance-icon" *ngIf="rolId === 2">
+        <img src="./assets/img/catalog/editor.png" alt="Editar" (click)="editService(item.idPk)">
+      </figure>
+      <a *ngIf="rolId === 1" class="cursor-pointer c-consult-a" (click)="showService(item.idPk)">Consultar</a>
+    </div>
+  </div>
+  <footer class="row l-footer">
+    <div class="col-sm-12 c-pagination">
+      <pagination-controls 
+        (pageChange)="page = $event"
+        previousLabel="Anterior"
+        nextLabel="Siguiente"></pagination-controls>
+    </div>
+  </footer>
+</div>
+
+<div class="modal fade" id="modalToDelete" tabindex="-1" role="dialog" aria-labelledby="modalToDelete" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content c-modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title c-modal-title" id="modalToDelete">¿Eliminar?</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="c-modal-p">¿Desea borrar los elementos?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary c-modal-btn" data-dismiss="modal" (click)="deleteItems()">Eliminar</button>
+        <button type="button" class="btn btn-primary c-modal-btn" data-dismiss="modal">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

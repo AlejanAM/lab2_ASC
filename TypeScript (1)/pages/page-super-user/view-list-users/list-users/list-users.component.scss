@@ -1,0 +1,81 @@
+$color-blue: #4A68A9;
+
+.l-list-user{
+  margin: 2vh 3vw;
+
+  .l-title{
+    article {
+      h3 {
+        color: #788998;
+        font-family: Helvetica;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 29px;
+        margin-top: 6px;
+      }
+      display: flex;
+      .c-delete-btn{
+        color: #788998;
+        font-size: 40px;
+      }
+      hr {
+        border-top: 2px solid rgba(0,0,0,.1);
+      }
+    }
+  }
+
+  .c-list-user {
+    overflow-y: scroll;
+    height: 48vh;
+    .l-footer-list-user{
+      position: absolute;
+      left: 42vw;
+    }
+    .c-user-info {
+      margin-bottom: 1em;
+      padding-left: 5%;
+      display: flex;
+      article.c-info {
+        cursor: pointer;
+        display: grid;
+      }
+      .c-consult-a{
+        color: #1F4895;
+        font-family: Helvetica;
+        font-size: 16px;
+        font-style: oblique;
+        line-height: 0;
+        text-decoration: underline;
+      }
+      .btn-icon {
+        color: $color-blue;
+        padding: 5px;
+        border: 1px solid $color-blue;
+        border-radius: 3px;
+        margin: 5px;
+      }
+      .btn-icon:hover {
+        cursor: pointer;
+      }
+      .c-maintance-icon {
+        margin-left: 2em;
+        img {
+          height: 21px;
+          width: 21px;
+          cursor: pointer;
+          margin: 1em 0 0 1em;
+        }
+      }
+      span, .org-name {
+        color: #788998;
+        font-family: Helvetica;
+        font-size: 16px;
+        line-height: 17px;
+      }
+      .org-name {
+        font-weight: bold;
+      }
+    }
+  }
+
+}

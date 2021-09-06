@@ -1,0 +1,102 @@
+@import url('//netdna.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.css');
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
+@import '../../../../../statistics/indicators/assets/riliwan-rabo.css';
+@import '../../../../../statistics/indicators//assets/style.css';
+
+$color-orange: #ef5c00;
+$color-white: #ffffff;
+$color-black: #000000;
+$color-green: #1e884b;
+$color-red: #a32a1d;
+$color-dark-gray: #464646;
+$gray-error: #565656;
+$color-blue: #3e578e;
+$color-light-gray: #dedede;
+
+.btnAlert {
+  width: 160px;
+  height: 40px;
+  background: $color-blue;
+  color: $color-white;
+  font-weight: bold;
+  &:hover {
+    background: $color-light-gray;
+  }
+}
+
+#cancel-btn {
+  background-color: $color-light-gray;
+  color: $color-black;
+}
+
+p {
+  font-size: 16px !important;
+}
+.warning-text {
+  padding-left: 3.3em;
+  padding-right: 3.3em;
+}
+.modal-subtitle {
+  color: $color-orange;
+  padding-left: 2.5em;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.step-title {
+  font-size: 12px;
+  font-weight: bold;
+}
+.modal-error {
+  color: $gray-error;
+}
+
+.modal-content-error {
+  border-top: 8px solid $color-red;
+}
+
+.modal-content-success {
+  border-top: 8px solid $color-green;
+}
+
+.modal-content-warning {
+  border-top: 8px solid $color-blue;
+}
+
+.title-modal-error {
+  color: $color-red;
+}
+
+.modal-body {
+  b {
+    &.error {
+      color: $color-red;
+    }
+  }
+}
+
+.title-modal-success {
+  color: $color-green;
+}
+
+.title-modal-warning {
+  color: $color-blue;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+b {
+  &.error {
+    color: $color-red;
+  }
+  &.success {
+    color: $color-green;
+  }
+  &.warning {
+    color: $color-blue;
+  }
+}
+
+#errorB {
+  color: $color-red;
+}

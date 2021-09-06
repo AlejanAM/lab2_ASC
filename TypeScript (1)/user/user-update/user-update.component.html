@@ -1,0 +1,189 @@
+<header id="c-message" *ngIf="showMessage">
+  <article class="card-success card" *ngIf="isSuccessful">
+    <div class="card-block" *ngIf="crudId === 1">
+      <h4 class="card-title">Aviso!</h4>
+      <p class="card-text">Usuario actualizado, sus cambios se encuentran pendientes a la aprobación del administrador de catálogo.</p>
+      <button type="button" class="btn btn-accept" (click)="logOut()">Salir</button>
+    </div>
+    <div class="card-block" *ngIf="crudId === 2">
+      <h4 class="card-title">Aviso!</h4>
+      <p class="card-text">Usuario actualizado</p>
+      <button type="button" class="btn btn-accept" (click)="backToProfile()">Mi Perfil</button>
+    </div>
+  </article>
+  <article class="card-fail card" *ngIf="!isSuccessful">
+    <div class="card-block">
+      <h4 class="card-title">Aviso!</h4>
+      <p class="card-text">Falló al momento de actualizar</p>
+    </div>
+    <button type="button" class="btn btn-danger" (click)="backToForm()">Regresar</button>
+  </article>
+</header>
+
+<section class="container py-5" *ngIf="!showMessage">
+  <div class="row">
+    <div class="col-md-12">
+      <hr class="mb-5">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <section class="v-user">
+            <button type="button" class="btn btn-default" (click)="backToProfile()">Mi Perfil</button>
+            <div class="card card-outline-secondary">
+              <header class="card-header">
+                  <h3 class="mb-0">Actualizar</h3>
+              </header>
+              <section class="card-block">
+                <div id="updateUser">
+                  <form [formGroup]="userForm">
+
+                      
+                    <fieldset class="form-group">
+                      <legend>Procedencia</legend>
+                      <div class="form-check">
+                        <label class="form-check-label" for="op-has-schedule-national">
+                          <input type="radio" class="form-check-input" id="op-has-schedule-national" [value]="true" checked formControlName="provenance" (change)="handleProvenanceChange()">
+                          Nacional
+                        </label>
+                      </div>
+  
+                      <div class="form-check">
+                        <label class="form-check-label" for="op-has-schedule-foreign">
+                          <input type="radio" class="form-check-input" id="op-has-schedule-foreign" [value]="false" formControlName="provenance" (change)="handleProvenanceChange()">
+                          Extranjero
+                        </label>
+                      </div>
+                    </fieldset>
+  
+                    <div class="form-group">
+                      <label for="in-dni">Identificación</label>
+                      <input [textMask]="dniMask" type="text" class="form-control" id="in-dni" placeholder="Identificación de usuario" formControlName="dni">
+                      <div *ngIf="userForm.controls.dni.hasError('required') && userForm.controls.dni.touched" class="alert alert-danger">
+                        Identificación es requerida.
+                      </div>
+                    </div>
+                
+                    <div class="form-group">
+                      <label for="in-first-name">Nombre</label>
+                      <input type="text" class="form-control" id="in-first-name" placeholder="Nombre de usuario" formControlName="firstName">
+                      <div *ngIf="userForm.controls.firstName.hasError('required') && userForm.controls.firstName.touched" class="alert alert-danger">
+                        Nombre es requerido.
+                      </div>
+                      <div *ngIf="userForm.controls.firstName.hasError('maxlength') && !userForm.controls.firstName.hasError('required')" class="alert alert-danger">
+                        <span>Nombre debe contener un maximo de 30 caracteres.</span>
+                      </div>
+                    </div>
+                
+                    <div class="form-group">
+                      <label for="in-last-name">Apellidos</label>
+                      <input type="text" class="form-control" id="in-last-name" placeholder="Apellidos" formControlName="lastName">
+                      <div *ngIf="userForm.controls.lastName.hasError('required') && userForm.controls.lastName.touched" class="alert alert-danger">
+                        Apellidos son requeridos.
+                      </div>
+                      <div *ngIf="userForm.controls.lastName.hasError('maxlength') && !userForm.controls.lastName.hasError('required')" class="alert alert-danger">
+                        <span>Apellidos deben contener un maximo de 65 caracteres.</span>
+                      </div>
+                    </div>
+                
+                    <div class="form-group">
+                      <label for="in-telephone">Teléfono</label>
+                      <input type="text" class="form-control" id="in-telephone" placeholder="(+)506)" formControlName="telephone">
+                      <div *ngIf="userForm.controls.telephone.hasError('required') && userForm.controls.telephone.touched" class="alert alert-danger">
+                        Teléfono es requerido.
+                      </div>
+                      <div *ngIf="userForm.controls.telephone.hasError('maxlength') && !userForm.controls.telephone.hasError('required')" class="alert alert-danger">
+                        <span>Teléfono debe contener un maximo de 25 caracteres.</span>
+                      </div>
+                      <div *ngIf="userForm.controls.telephone.hasError('pattern') && !userForm.controls.telephone.hasError('required')" class="alert alert-danger">
+                        <span>Teléfono solo acepta valores númericos.</span>
+                      </div>
+                    </div>
+                
+                    <div class="form-group">
+                      <label for="in-email">Correo electrónico</label>
+                      <input type="email" class="form-control" id="in-email" placeholder="ejemplo@email.com" formControlName="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$">
+                      <div *ngIf="userForm.controls.email.hasError('required') && userForm.controls.email.touched" class="alert alert-danger">
+                        Correo electrónico es requerido.
+                      </div>
+                      <div *ngIf="userForm.controls.email.hasError('maxlength') && !userForm.controls.email.hasError('required')" class="alert alert-danger">
+                        <span>Correo electrónico debe contener un maximo de 60 caracteres.</span>
+                      </div>
+                      <div *ngIf="userForm.controls.email.hasError('pattern') && !userForm.controls.email.hasError('required')" class="alert alert-danger">
+                        <span>Formato de correo electrónico incorrecto</span>
+                      </div>
+                    </div>
+                
+                    <div class="form-group">
+                      <label for="in-address">Dirección</label>
+                      <input type="text" class="form-control" id="in-address" placeholder="Lugal de residencia" formControlName="address">
+                      <div *ngIf="userForm.controls.address.hasError('required') && userForm.controls.address.touched" class="alert alert-danger">
+                        Dirección es requerida.
+                      </div>
+                      <div *ngIf="userForm.controls.address.hasError('maxlength') && !userForm.controls.address.hasError('required')" class="alert alert-danger">
+                        <span>Dirección debe contener un maximo de 90 caracteres.</span>
+                      </div>
+                    </div>
+  
+                    <fieldset class="form-group">
+                      <legend>Sexo</legend>
+                      <div class="form-check">
+                        <label class="form-check-label" for="op-sex-male">
+                          <input type="radio" class="form-check-input" id="op-sex-male" [value]="true" checked formControlName="sex">
+                          Masculino
+                        </label>
+                      </div>
+  
+                      <div class="form-check">
+                        <label class="form-check-label" for="op-sex-female">
+                          <input type="radio" class="form-check-input" id="op-sex-female" [value]="false" formControlName="sex">
+                          Femenino
+                        </label>
+                      </div>
+                    </fieldset>
+                
+                    <div class="form-group">
+                      <label for="in-profession">Profesión u oficio</label>
+                      <input type="text" class="form-control" id="in-profession" placeholder="Oficio en el que se desempeña" formControlName="profession">
+                      <div *ngIf="userForm.controls.profession.hasError('required') && userForm.controls.profession.touched" class="alert alert-danger">
+                        Profesión u oficio es requerido.
+                      </div>
+                      <div *ngIf="userForm.controls.profession.hasError('maxlength') && !userForm.controls.profession.hasError('required')" class="alert alert-danger">
+                        <span>Profesión u oficio debe contener un maximo de 40 caracteres.</span>
+                      </div>
+                    </div>
+                
+                    <div class="form-group">
+                      <label for="in-password">Contraseña</label>
+                      <input type="password" class="form-control" id="in-password" formControlName="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"/>
+                      <div *ngIf="userForm.controls.password.hasError('required') && userForm.controls.password.touched" class="alert alert-danger">
+                        Contraseña es requerida.
+                      </div>
+                      <div *ngIf="userForm.controls.password.hasError('maxlength') && !userForm.controls.password.hasError('required')" class="alert alert-danger">
+                        <span>Contraseña debe contener un maximo de 200 caracteres.</span>
+                      </div>
+                      <div *ngIf="userForm.controls.password.hasError('pattern') && !userForm.controls.password.hasError('required')" class="alert alert-danger">
+                        <span>Contraseña debe contener una mayuscula y un valor númerico.</span>
+                      </div>
+                    </div>
+                
+                    <div class="form-group">
+                      <label for="in-confirm-password">Confirmar Contraseña</label>
+                      <input type="password" class="form-control" formControlName="confirmPassword" />
+                      <div *ngIf="userForm.controls.confirmPassword.hasError('required') && userForm.controls.confirmPassword.touched" class="alert alert-danger">
+                        Contraseñas desiguales.
+                      </div>
+                    </div>  
+
+                    <div class="form-group">
+                      <button type="button" class="btn btn-primary" [disabled]="!userForm.valid" (click)="updateUser(userForm.value, userForm.valid)">Actualizar</button>
+                    </div>
+                  </form>
+
+                </div>
+              </section>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

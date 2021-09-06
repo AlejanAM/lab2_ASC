@@ -1,0 +1,45 @@
+<app-user-details></app-user-details>
+<div class="container c-user-inspect">
+  <hr>
+  <div class="row">
+    <div class="col-sm-6 mx-auto">
+      <form ngNativeValidate (ngSubmit)="rejectUser()">
+        <textarea aria-label="Agregar Comentario" class="form-control" rows="8" [(ngModel)]="descriptionReject"
+          name="descriptionReject" type="text" id="descriptionReject" required placeholder="Comentar..."></textarea>
+        <div class="c-btn text-center">
+          <button type="button" class="success" name="btnAccept" id="btnAccept" (click)="acceptUser()"
+            data-toggle="modal" data-target="#modalToConfirm">Aprobar</button>
+          <button type="submit" class="danger" name="btnReject" id="btnReject" (click)="rejectUser()"
+            data-toggle="modal" data-target="#modalToConfirm">Rechazar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title" id="exampleModalLabel">Eliminar Usuario</h1>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ¿Realmente usted desea eliminar el Usuario? <strong>NOTA : Tome en cuenta que automaticamente eliminaria todos
+          las organizaciones, productos y servicios.</strong>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="deleteUser()">Elminar
+          Usuario</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<app-modal-confirmation [modalConfirmationTitle]="titleModalConfirmation"
+  [modalConfirmationBody]="bodyModalConfirmation" (emitBooleanConfirmation)="executeInspection($event)">
+</app-modal-confirmation>

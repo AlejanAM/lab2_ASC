@@ -1,0 +1,17 @@
+<section class="input-group l-search mx-auto">
+  <div class="c-btn-search">
+    <button type="button" class="fa fa-search fa-lg"
+    name="button" 
+    role="button"
+    aria-label="Buscar entidad"
+    (click)="searchProductByName()"
+    (keyup.enter)="searchProductByName()"
+    (keydown.enter)="searchProductByName()"
+    ></button>
+  </div>
+  <input type="text" [(ngModel)]="name" 
+    (keyup.enter)="searchProductByName()"
+    (keydown.enter)="searchProductByName()"
+    class="form-control in-search" 
+    placeholder="Buscar" aria-label="Escriba el nombre de la entidad">
+</section>

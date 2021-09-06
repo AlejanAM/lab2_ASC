@@ -1,0 +1,627 @@
+<section class="container v-item v-product-service" *ngIf="sharedService.isConsultantView(viewSelected)">
+  <div class="l-item-details" role="main">
+    <div class="row u-min width">
+      <aside class="col-md-8 l-detail">
+        <div class="row">
+          <div class="col-md-12">
+            <article>
+              <h1>{{ serviceDetail.item?.name }}</h1>
+              <h2>{{ organizationName }}</h2>
+              <h3 *ngIf="serviceDetail.item?.service.cost">
+                Costo <b>{{ serviceDetail.item?.service.cost }}</b>
+              </h3>
+              <h3 *ngIf="serviceDetail.item?.startCost">
+                Costo Inicial <b>{{ serviceDetail?.item?.startCost }}</b>
+              </h3>
+              <h3 *ngIf="serviceDetail.item?.endCost">
+                Costo Final <b>{{ serviceDetail?.item?.endCost }}</b>
+              </h3>
+            </article>
+          </div>
+        </div>
+        <div class="carousel-container">
+          <carousel [slides]="slides"></carousel>
+        </div>
+        <div class="row">
+          <div class="col-md-12" *ngIf="serviceDetail.item?.description">
+            <article>
+              <span>Descripción</span>
+              <p class="underline">{{ serviceDetail.item?.description }}</p>
+            </article>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" *ngIf="serviceDetail.item?.typeDeficiency">
+            <article>
+              <span>Tipo de Deficiencia</span>
+              <p class="underline">{{ serviceDetail.item?.typeDeficiency }}</p>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.item?.service.typeSupports !== -1">
+            <article>
+              <span>Tipo de Apoyo</span>
+              <p class="underline" *ngIf="serviceDetail.item?.service.typeSupports === 0">
+                Individual
+              </p>
+              <p class="underline" *ngIf="serviceDetail.item?.service.typeSupports === 1">
+                Grupal
+              </p>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.item?.service.objectives">
+            <article>
+              <span>Objetivos</span>
+              <p class="underline">
+                {{ serviceDetail.item.service.objectives }}
+              </p>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.item?.service.reaches">
+            <article>
+              <span>Fines</span>
+              <p class="underline">{{ serviceDetail.item.service.reaches }}</p>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.certificates">
+            <article>
+              <span>Certificaciones</span>
+              <div *ngFor="let certificate of serviceDetail?.certificates">
+                <p class="underline" *ngIf="certificate.certificate.name">
+                  {{ certificate.certificate.name }}
+                </p>
+                <p class="underline" *ngIf="!certificate.certificate.name">
+                  Sin Datos.
+                </p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.legalPermissions">
+            <article>
+              <span>Permisos Legales</span>
+              <p class="underline" *ngFor="let legalPermission of serviceDetail?.legalPermissions">
+                {{ legalPermission.legalPermission.name }}
+              </p>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.item?.service.accesibility">
+            <article>
+              <span>Accesibilidad</span>
+              <p class="underline">
+                {{ serviceDetail.item?.service.accesibility }}
+              </p>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.item?.observations">
+            <article>
+              <span>Observaciones</span>
+              <p class="underline">{{ serviceDetail.item?.observations }}</p>
+            </article>
+          </div>
+          <div class="col-md-12 mt-4">
+            <span class="shared-title">Compartir servicio</span>
+            <a role="button" 
+              aria-label="Compartir servicio en linkedIn"
+              class="circle-share-btn d-block mt-2" 
+              href="javascript:void(
+                  window.open('http://www.linkedin.com/shareArticle?url='+encodeURIComponent(location),
+                  '',
+                  'width=600,height=400,left=50,top=50')
+                );">
+              <img src="./assets/img/catalog/linkedin.svg" alt="" class="center-share-icon">
+            </a>
+          </div>
+        </div>
+      </aside>
+      <aside class="col-md-4 c-sidebar-detail">
+        <div class="row">
+          <div class="col-md-12 l-title">
+            <article>
+              <h4>Población</h4>
+            </article>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" *ngIf="serviceDetail.item?.age">
+            <article>
+              <span>Grupo Etario:&nbsp;</span>
+              <p *ngFor="let age of serviceDetail.item?.age">
+                <b>{{ age?.age }}</b>
+              </p>
+            </article>
+          </div>
+          <div class="col-md-12">
+            <article>
+              <span>Dirigido a Población:&nbsp;
+                <b *ngIf="serviceDetail?.item?.sex === 2">Ambos</b>
+                <b *ngIf="serviceDetail?.item?.sex === 1">Masculino</b>
+                <b *ngIf="serviceDetail?.item?.sex === 0">Femenino</b>
+              </span>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.item?.service.others">
+            <article>
+              <span class="span-2">Otro (persona usuaria):&nbsp;
+                <b>{{ serviceDetail.item?.service.others }}</b>
+              </span>
+            </article>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-12 l-title">
+            <article>
+              <h4>Disponibilidad y Atención</h4>
+            </article>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <article>
+              <span>Disponible:&nbsp;
+                <b *ngIf="serviceDetail.item?.visibility">Sí</b>
+                <b *ngIf="!serviceDetail.item?.visibility">No</b>
+              </span>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="
+              serviceDetail.item?.daysToOperations &&
+              serviceDetail.item?.daysToOperations.length > 0
+            ">
+            <article>
+              <span id="schedule">Días Disponibles:&nbsp;</span>
+              <div class="c-days">
+                <p *ngFor="
+                    let operationDay of serviceDetail.item?.daysToOperations
+                  ">
+                  <b>{{ operationDay }},</b>
+                </p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.typesAttention">
+            <article>
+              <span>Tipo de Atención:&nbsp;</span>
+              <p *ngFor="let typeAttention of serviceDetail?.typesAttention">
+                <b>{{ typeAttention.typeAttention.name }}</b>
+              </p>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.item?.service.attentionFrecuency">
+            <article>
+              <span>Frecuencia Atención:&nbsp;
+                <b>{{ serviceDetail.item?.service.attentionFrecuency }}</b>
+              </span>
+            </article>
+          </div>
+          <div class="col-md-12">
+            <article>
+              <span>Horario Extraordinario:&nbsp;
+                <b *ngIf="serviceDetail.item?.service.scheduleExtraordinary">Sí</b>
+                <b *ngIf="!serviceDetail.item?.service.scheduleExtraordinary">No</b>
+              </span>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="
+              serviceDetail.item?.service.scheduleExtraordinary &&
+              serviceDetail.item?.service.scheduleExtraordinary.length > 0
+            ">
+            <article>
+              <span>Tipo Atención Extraordinaria:&nbsp;</span>
+              <p *ngFor="let typeAttention of serviceDetail?.typeAttentionExtra">
+                <b>{{ typeAttention.typeAttention.name }}</b>
+              </p>
+            </article>
+          </div>
+
+          <div class="col-md-12">
+            <article>
+              <span>Frecuencia de Atención Extraordinaria:&nbsp;</span>
+              <p *ngFor="let typeAttention of serviceDetail?.extraAttentionFrecuency">
+                <b>{{ typeAttention.attentionFrecuency }}</b>
+              </p>
+            </article>
+          </div>
+
+          <div class="col-md-12" *ngIf="
+              serviceDetail.item?.service.daysToOperations &&
+              serviceDetail.item?.service.daysToOperations.length > 0
+            ">
+            <article>
+              <span id="schedule">Días Disponibles (horario Extraordinario):&nbsp;</span>
+              <div class="c-days">
+                <p *ngFor="
+                    let operationDay of serviceDetail.item?.service
+                      .daysToOperations
+                  ">
+                  <b> {{ operationDay }}, </b>
+                </p>
+              </div>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.addresses">
+            <article>
+              <span>Dirección:&nbsp;</span>
+              <p *ngFor="let address of serviceDetail?.addresses">
+                <b>{{ address.address.address }}</b>
+              </p>
+            </article>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-12 l-title">
+            <article>
+              <h4>Acerca del servicio</h4>
+            </article>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12" *ngIf="serviceDetail.item?.service.responsabilityPerson">
+            <article>
+              <span class="span-1">Persona Encargada:&nbsp;
+                <b>{{ serviceDetail.item?.service.responsabilityPerson }}</b>
+              </span>
+            </article>
+          </div>
+          <div class="col-md-12" *ngIf="serviceDetail.item?.service.cover !== -1">
+            <article>
+              <span>Cobertura:&nbsp;
+                <b *ngIf="serviceDetail.item?.service.cover === 0">Nacional</b>
+                <b *ngIf="serviceDetail.item?.service.cover === 1">Internacional</b>
+                <b *ngIf="serviceDetail.item?.service.cover === 2">Regional</b>
+              </span>
+            </article>
+          </div>
+          <div class="col-md-12">
+            <article>
+              <span>Tipo de Servicio:&nbsp;
+                <b *ngIf="serviceDetail.item?.service.isPrivate">Privado</b>
+                <b *ngIf="!serviceDetail.item?.service.isPrivate">Público</b>
+              </span>
+            </article>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-md-12 l-title">
+            <article>
+              <h4>Compartir</h4>
+            </article>
+          </div>
+          <div class="col-md-12 l-share">
+            <share-buttons></share-buttons>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+<section class="container v-service-detail" *ngIf="!sharedService.isConsultantView(viewSelected)">
+  <header class="row c-header c-header">
+    <div class="col-md-12 c-service-1">
+      <img class="cursor-pointer" src="{{ serviceDetail?.item?.image1 }}" data-toggle="modal" data-target="#img1"
+        (click)="showModal('img1', serviceDetail?.item?.image1)" />
+      <div class="u-grid">
+        <span id="service-name">{{ serviceDetail?.item?.name }}</span>
+        <span *ngIf="serviceDetail.item?.code">Código {{ serviceDetail?.item?.code }}</span>
+        <span>Entidad {{ organizationName }}</span>
+        <span *ngIf="serviceDetail.item?.service.cost">Costo {{ serviceDetail?.item?.service?.cost }}</span>
+        <span *ngIf="serviceDetail.item?.startCost">Costo Inicial {{ serviceDetail?.item?.startCost }}</span>
+        <span *ngIf="serviceDetail.item?.endCost">Costo Final {{ serviceDetail?.item?.endCost }}</span>
+      </div>
+    </div>
+  </header>
+  <hr />
+  <main class="container">
+    <div class="row c-block" *ngIf="serviceDetail.item?.description">
+      <div class="col-md-2">
+        <span>Descripción</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ serviceDetail?.item?.description }}</p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.item?.typeDeficiency">
+      <div class="col-md-2">
+        <span>Tipo de Deficiencia</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ serviceDetail?.item?.typeDeficiency }}</p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.item?.service?.typeSupports !== -1">
+      <div class="col-md-2">
+        <span>Tipo de Apoyo</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngIf="serviceDetail.item?.service.typeSupports === 0">Individual</p>
+        <p *ngIf="serviceDetail.item?.service.typeSupports === 1">Grupal</p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.item?.service.objectives">
+      <div class="col-md-2">
+        <span>Objetivos</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ serviceDetail?.item?.service?.objectives }}</p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.item?.service.reaches">
+      <div class="col-md-2">
+        <span>Fines (Alcances)</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ serviceDetail?.item?.service?.reaches }}</p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.certificates">
+      <div class="col-md-2">
+        <span>Certificaciones</span>
+      </div>
+      <div class="col-md-10">
+        <div *ngFor="let certificate of serviceDetail?.certificates">
+          <p *ngIf="certificate.certificate.name">
+            {{ certificate.certificate.name }}
+          </p>
+          <p *ngIf="!certificate.certificate.name">
+            Sin Datos.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.item?.service.accesibility">
+      <div class="col-md-2">
+        <span>Accesibilidad</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ serviceDetail?.item?.service?.accesibility }}</p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.legalPermissions">
+      <div class="col-md-2">
+        <span>Permisos Legales</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="let legalPermission of serviceDetail?.legalPermissions">
+          {{ legalPermission.legalPermission.name }}
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="row c-block" *ngIf="serviceDetail.item?.observations">
+      <div class="col-md-2">
+        <span>Observaciones</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ serviceDetail?.item?.observations }}</p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="
+        serviceDetail.item?.age.length > 0 && (serviceDetail.item?.age)[0].age
+      ">
+      <div class="col-md-2">
+        <span>Grupo Etario</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="let age of serviceDetail?.item?.age">
+          {{ age.age }}
+        </p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Dirigido a la población</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngIf="serviceDetail?.item?.sex === 2">
+          Ambos
+        </p>
+        <p *ngIf="serviceDetail?.item?.sex === 1">
+          Masculino
+        </p>
+        <p *ngIf="serviceDetail?.item?.sex === 0">
+          Femenino
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" id="region">
+      <div class="col-md-2">
+        <span>Servicio dirigido a mujeres en estado de embarazo</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngIf="serviceDetail?.item?.isForPregnant">
+          Sí
+        </p>
+        <p *ngIf="!serviceDetail?.item?.isForPregnant">
+          No
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail?.item?.itemFile1">
+      <div class="col-md-2">
+        <span>Ficha técnica 1</span>
+      </div>
+      <div class="col-md-10">
+        <p role="button" class="downloadFile" (click)="showFile(serviceDetail?.item?.itemFile1)">
+          {{ serviceDetail?.item?.itemFile1 }}
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail?.item?.itemFile2">
+      <div class="col-md-2">
+        <span>Ficha técnica 2</span>
+      </div>
+      <div class="col-md-10">
+        <p role="button" class="downloadFile" (click)="showFile(serviceDetail?.item?.itemFile2)">
+          {{ serviceDetail?.item?.itemFile2 }}
+        </p> 
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail?.item?.itemFile3">
+      <div class="col-md-2">
+        <span>Ficha técnica 3</span>
+      </div>
+      <div class="col-md-10">
+        <p role="button" class="downloadFile" (click)="showFile(serviceDetail?.item?.itemFile3)">
+          {{ serviceDetail?.item?.itemFile3 }}
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" id="region" *ngIf="serviceDetail.item?.service.others">
+      <div class="col-md-2">
+        <span class="span-2">Otro (persona usuaria)</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ serviceDetail?.item?.service?.others }}</p>
+      </div>
+    </div>
+    <hr />
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Disponible</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngIf="serviceDetail?.item?.visibility">
+          Sí
+        </p>
+        <p *ngIf="!serviceDetail?.item?.visibility">
+          No
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.item?.daysToOperations.length > 0">
+      <div class="col-md-2">
+        <span>Días disponibles</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="let operationDay of serviceDetail?.item?.daysToOperations">
+          {{ operationDay }},
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.item?.service.attentionFrecuency">
+      <div class="col-md-2">
+        <span>Frecuencia Atención</span>
+      </div>
+      <div class="col-md-10">
+        <p>{{ serviceDetail.item?.service.attentionFrecuency }}</p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Horario Extraordinario</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngIf="serviceDetail?.item?.service?.scheduleExtraordinary">
+          Sí
+        </p>
+        <p *ngIf="!serviceDetail?.item?.service?.scheduleExtraordinary">
+          No
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.typeAttentionExtra">
+      <div class="col-md-2">
+        <span>Tipo Atención Extraordinario</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="let typeAttention of serviceDetail?.typeAttentionExtra">
+          {{ typeAttention.typeAttention.name }}
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.extraAttentionFrecuency">
+      <div class="col-md-2">
+        <span>Tipo de Frecuencia de Atención Extraordinaria</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="let typeAttention of serviceDetail?.extraAttentionFrecuency">
+          {{ typeAttention.attentionFrecuency }}
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.item?.service.daysToOperations.length > 0">
+      <div class="col-md-2">
+        <span>Días disponibles (horario Extraordinario)</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="
+            let operationDay of serviceDetail.item?.service.daysToOperations
+          ">
+          {{ operationDay }},
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.addresses">
+      <div class="col-md-2">
+        <span>Dirección</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngFor="let address of serviceDetail?.addresses">
+          {{ address.address.address }}
+        </p>
+      </div>
+    </div>
+    <hr />
+    <div class="row c-block" *ngIf="serviceDetail.item?.service.responsabilityPerson">
+      <div class="col-md-2">
+        <span>Persona Encargada</span>
+      </div>
+      <div class="col-md-10">
+        <p>
+          {{ serviceDetail?.item?.service?.responsabilityPerson }}
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="serviceDetail.item?.service.cover !== -1">
+      <div class="col-md-2">
+        <span>Cobertura</span>
+      </div>
+
+      <div class="col-md-10">
+        <p *ngIf="serviceDetail.item?.service.cover === 0">
+          Nacional
+        </p>
+        <p *ngIf="serviceDetail.item?.service.cover === 1">
+          Internacional
+        </p>
+        <p *ngIf="serviceDetail.item?.service.cover === 2">
+          Regional
+        </p>
+      </div>
+    </div>
+    <div class="row c-block">
+      <div class="col-md-2">
+        <span>Tipo de Servicio</span>
+      </div>
+      <div class="col-md-10">
+        <p *ngIf="serviceDetail?.item?.service?.isPrivate">
+          Privado
+        </p>
+        <p *ngIf="!serviceDetail?.item?.service?.isPrivate">
+          Público
+        </p>
+      </div>
+    </div>
+    <div class="row c-block" *ngIf="
+        !itemService.checkItemIsNotPending(
+          serviceDetail?.item?.isChecked,
+          serviceDetail?.item?.isApproved
+        ) && roleId === 2
+      ">
+      <div class="col-md-12 text-center c-btn-1">
+        <button (click)="editService(serviceDetail?.item?.idPk)" class="btn-1">
+          Editar
+        </button>
+      </div>
+    </div>
+  </main>
+</section>
+<div class="container" *ngIf="!sharedService.isConsultantView(viewSelected)">
+  <div class="col-12 text-center">
+    <button class="c-btn-back" type="button" name="btnBack" (click)="backToConsultantView()">
+      Volver
+    </button>
+  </div>
+</div>
+<app-item-show-modal *ngIf="isOpen" (changeShowState)="handleChangeModalState($event)"></app-item-show-modal>

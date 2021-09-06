@@ -1,0 +1,47 @@
+.l-subSystems{
+  margin: 2vh 3vw;
+  .c-title{
+    article {
+      display: flex;
+      h3 {
+        color: #788998;
+        font-family: Helvetica;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 29px;
+        margin-top: 6px;
+      }
+    }
+    hr {
+      border-top: 2px solid rgba(0,0,0,.1);
+    }
+  }
+
+  .l-listSubSystems {
+    width: 100%;
+    .c-images {
+      margin: 0 auto;
+      padding: 1% 1.1% 0;
+      i {
+        font-size: 8em;
+        color: #788998;
+        cursor: pointer;
+        border-radius: 8px;
+        text-align: center;
+      }
+      h4 {
+        cursor: pointer;
+        height: 17px;
+        color: #697272;
+        font-family: Helvetica;
+        font-size: 16px;
+        line-height: 17px;
+        text-align: center;
+      }
+    }
+    .col-sm-4 > h4{
+      text-align: left!important;
+    }
+  }
+
+}

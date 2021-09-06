@@ -1,0 +1,39 @@
+.l-main {
+  overflow: scroll;
+
+  #main-page-container {
+    .u-pad {
+      &.right {
+        padding-right: 0;
+      }
+      &.left {
+        padding-left: 0;
+      }
+    }
+  }
+}
+
+.breadCrumb li {
+  display: inline;
+}
+.breadCrumb li+li:before {
+  content: " / ";
+}
+.breadCrumb {
+  background-color: transparent;
+  margin-bottom: 0;
+  margin-top: 15px;
+}
+.breadCrumb-active {
+  color: #22569B !important;
+  cursor: default;
+}
+
+.list-group {
+  li {
+    a {
+      color: #7e8a8b;
+      text-decoration: none;
+    }
+  }
+}
